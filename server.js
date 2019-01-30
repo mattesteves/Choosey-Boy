@@ -46,3 +46,12 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+
+/*
+route paths
+  GET - /new_poll
+  POST - /new_poll
+  GET - /poll/:id
+  POST - /poll/:id
+  GET - /poll/:id/results
+*/
