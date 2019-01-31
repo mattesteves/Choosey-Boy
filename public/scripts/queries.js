@@ -39,7 +39,7 @@ function insertUser(email, selectUser) {
 }
 
 // inserts new poll into polls table
-function insertPoll(email, value, selectUser, options, descriptions) {
+function insertPoll(email, value, options, descriptions, selectUser) {
   selectUser(email).then(user => {
       knex('polls')
         .insert({
@@ -67,8 +67,8 @@ function insertOptions(poll, option, description) {
     .catch(err => console.log('error inserting option', err))
 }
 
-//selects target option row from options table
-function selectOption(value) {
+//selects option by target value row from options table
+function selectOptionByValue(value) {
   return(
     knex('options')
       .where({
@@ -79,18 +79,27 @@ function selectOption(value) {
 }
 
 //inserts user votes into votes database
-// function insertVotes(optionValue, user_cookie, pointWeight) {
-//   selectOption(optionValue).then(option => {
-//   })
-// }
+function insertVotes(optionValue, userCookie, pointWeight, selectOption) {
+  selectOption(optionValue).then(option => {
+    knex('votes')
+      .insert({
+        option_id: option[0].id,
+        user_cookie: userCookie,
+        point_weight: pointWeight
+      })
+      .catch(err => console.log('error inserting vote', err))
+  })
+}
 
-// insertVotes('Airplane')
-// insertPoll('mike@gmail.com', 'poll1', selectUserByEmail, ['option1', 'option2', 'option3'], ['desc1'])
+// insertVotes('Airplane', 12, 5, selectOptionByValue);
+// insertPoll('mike@gmail.com', 'poll1', ['option1', 'option2', 'option3'], ['desc1'], selectUserByEmail)
 // insertUser('mikesnow@gmail.com', selectUserByEmail);
 
 module.exports = {
   selectUserByEmail: selectUserByEmail,
   insertUser: insertUser,
   insertPoll: insertPoll,
-  insertOptions: insertOptions
+  insertOptions: insertOptions,
+  selectOptionByValue: selectOptionByValue,
+  insertVotes: insertVotes
 }
