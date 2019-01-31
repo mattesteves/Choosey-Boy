@@ -15,27 +15,23 @@
     text-shadow: .2rem .2rem darkgray;
 }
 .pullquote{
-    max-width:60%;
+
     font-size:1.5rem;
-    margin:auto;
+    margin-bottom: 15%;
     
 }
 
-.main-content{
-    margin:auto;
-    margin-top: 4%;
+.col-6.maincon{
     color:white;
-    width:80%;
-    justify-content: center;
-    text-align:center;  
+    text-align:center;
+    
 }
 button.btn.btn-outline-secondary.start{
     font-size: 1.5rem;
-    padding:1.5rem;
-    margin:2rem;
-    margin-bottom:10%;
+
     color: #625d8e;
     background-color: white;
+    margin-bottom:10%;
 }
 
 button.btn.btn-outline-secondary.start:hover{
@@ -52,7 +48,5 @@ button.btn.btn-success.emailbutton{
 }
 
 .input-group.email{
-    width:40%;
-    margin:auto;
-    text-align:center;
+    width:80%;
 }
