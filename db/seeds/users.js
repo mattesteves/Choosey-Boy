@@ -1,15 +1,19 @@
 exports.seed = function(knex, Promise) {
 
   function deleteUsers(){
-    return knex('users').del()
+    return knex('users').del();
   }
 
   function deletePolls() {
-    return knex('polls').del()
+    return knex('polls').del();
   }
 
   function deleteOptions() {
-    return knex('options').del()
+    return knex('options').del();
+  }
+
+  function deleteVotes() {
+    return knex('votes').del();
   }
 
   function insertUsers() {
@@ -42,10 +46,24 @@ exports.seed = function(knex, Promise) {
     .returning('*')
   }
 
-  return deleteOptions()
+  function insertVotes(options) {
+    return knex('votes').insert([
+      {id: 1, option_id: options[0].id, user_cookie: 1, point_weight: 1},
+      {id: 2, option_id: options[1].id, user_cookie: 1, point_weight: 0},
+      {id: 3, option_id: options[0].id, user_cookie: 2, point_weight: 0},
+      {id: 4, option_id: options[1].id, user_cookie: 2, point_weight: 1},
+      {id: 5, option_id: options[0].id, user_cookie: 3, point_weight: 1},
+      {id: 6, option_id: options[1].id, user_cookie: 3, point_weight: 0}
+    ])
+    .returning('*')
+  }
+
+  return deleteVotes()
+    .then(deleteOptions)
     .then(deletePolls)
     .then(deleteUsers)
     .then(insertUsers)
     .then(users => insertPolls(users))
     .then(polls => insertOptions(polls))
+    .then(options => insertVotes(options))
 };
