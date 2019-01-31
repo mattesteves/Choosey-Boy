@@ -5,7 +5,6 @@ $(document).ready(function() {
 $('.btn btn-success emailbutton').on('submit', function(event) {
 
   event.preventDefault();
-  //check if test input box is empty or has more than 140 chars
   const email = $(".form-control");
 
   if (email.val() === "" || email.val() === null) {
