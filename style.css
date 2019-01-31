@@ -12,15 +12,18 @@
     margin: auto;
     color:white;
     text-align:center;
+    text-shadow: .2rem .2rem darkgray;
 }
 .pullquote{
     max-width:60%;
     font-size:1.5rem;
     margin:auto;
+    
 }
+
 .main-content{
     margin:auto;
-    margin-top: 6%;
+    margin-top: 4%;
     color:white;
     width:80%;
     justify-content: center;
@@ -30,6 +33,7 @@ button.btn.btn-outline-secondary.start{
     font-size: 1.5rem;
     padding:1.5rem;
     margin:2rem;
+    margin-bottom:10%;
     color: #625d8e;
     background-color: white;
 }
@@ -39,6 +43,12 @@ button.btn.btn-outline-secondary.start:hover{
     color: white;
     background-color: #625d8e;
     border-color: white;
+}
+button.btn.btn-success.emailbutton{
+    color: white;
+    background-color: #625d8e;
+    border-color: white;    
+
 }
 
 .input-group.email{
