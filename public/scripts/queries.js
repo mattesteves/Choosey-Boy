@@ -1,4 +1,4 @@
-require('dotenv').config({path: '../.env'});
+require('dotenv').config({path: '../../.env'});
 
 const knex = require('knex')({
   client: 'postgresql',
@@ -12,47 +12,45 @@ const knex = require('knex')({
   }
 })
 
-//inserts new user into users table
-function insertUser(email) {
-  knex('users')
-    .insert({
-      email: email
-    })
-    .catch(err => console.log('error inputing user', err))
-    .then(function () {
-      knex.destroy();
-    });
+// select user through email
+function selectUserByEmail(email){
+  return(
+    knex.select('id').from('users')
+      .where({
+        email: email
+      })
+      .returning('*')
+  )
 }
 
-//executes callback if user exists
-function checkUser(email, callback) {
-  knex.select('*').from('users')
-    .where({
-      email: email
-    })
-    .then(user => {
-      if(!user[0]) {
-
-        // user not in database
-        callback(email);
-      } else{
-
-        //user in database
-        knex.destroy()
-        throw 'user exists'
-      }
-    })
-    .catch(err => console.log('error inputing user', err))
+//inserts new user into users table
+function insertUser(email, selectUser) {
+  selectUser(email).then(user => {
+    if(!user[0]){
+      knex('users')
+        .insert({
+          email: email
+        })
+        .catch(err => console.log('error inputing user', err))
+    } else{
+      console.log('user in database')
+    }
+  })
 }
 
 // inserts new poll into polls table
-// function insertPoll(email) {
-//   knex('users')
-//     .insert({
+function insertPoll(email, value, selectUser) {
+  selectUser(email).then(user => {
+      knex('polls')
+        .insert({
+          user_id: user[0].id, value: value
+        })
+        .catch(err => console.log('error inputing user', err))
+        .then(function() {
+          knex.destroy();
+        })
+  })
+}
+// insertPoll('mike@gmail.com', 'new poll', selectUserByEmail)
+insertUser('mikesnow@gmail.com', selectUserByEmail);
 
-//     })
-//     .catch(err => console.log('error inputing user', err))
-//     .then(function() {
-//       knex.destroy();
-//     })
-// }
