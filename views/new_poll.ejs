@@ -1,10 +1,32 @@
 <% include partials/_header.ejs %>
 
-    <div class="input-group">
-        <input type="text" class="form-control" placeholder="" aria-label="Your's Question" aria-describedby="basic-addon1">
-        <div class="input-group-append">
-          <button class="btn btn-success" type="button">Love it</button>
-        </div>
-      </div>
+What are you choosing?<br>
+<input class="form-control form-control-lg" type="text" placeholder="What's the ultimate breakfast food?">
+
+<div class="option-container">
+    <div class="ind_option">
+        Option 1:<br>
+        <input class="form-control form-control-lg new_option" type="text" placeholder="Pancakes">
+        <i class="fas fa-backspace"></i> 
+        <br>
+    </div>
+
+    <div class="ind_option">
+        Option 2:<br>
+        <input class="form-control form-control-lg new_option" type="text" placeholder="Waffles">
+        <i class="fas fa-backspace"></i> <br>   
+    </div>
+</div> <!--end of options container-->
+
+    <br>
+    <button type="button" class="btn btn-outline-secondary start add-option">
+        <i class="fas fa-plus-circle"></i>
+        Another option
+    </button>
+    <br>
+    <button type="button" class="btn btn-outline-secondary start">
+        Create Poll
+        <i class="fas fa-check-circle"></i> 
+    </button>
 
 <% include partials/_footer.ejs %>
