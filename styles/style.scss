@@ -1,7 +1,9 @@
-.test {
-    background-color:#625d8e;
+$bg-purp: #625d8e;
+
+.whole_thing {
+    background-color: $bg-purp;
     justify-content: center;
-    background-image: url("/images/square_bg.png");
+    background-image: url("/styles/images/square_bg.png");
 }
 
 .logotext{
@@ -25,27 +27,29 @@
     color:white;
     text-align:center;
     
-}
-button.btn.btn-outline-secondary.start{
-    font-size: 1.5rem;
+    button.btn.btn-outline-secondary.start{
+        font-size: 1.5rem;
+    
+        color: $bg-purp;
+        background-color: white;
+        margin-bottom:10%;
 
-    color: #625d8e;
-    background-color: white;
-    margin-bottom:10%;
+    }
+    button.btn.btn-outline-secondary.start:hover{
+    
+        color: white;
+        background-color: $bg-purp;
+        border-color: white;
+    }
+    
+    button.btn.btn-success.emailbutton{
+        color: white;
+        background-color:$bg-purp;
+        border-color: white;    
+    
+    }
 }
 
-button.btn.btn-outline-secondary.start:hover{
-
-    color: white;
-    background-color: #625d8e;
-    border-color: white;
-}
-button.btn.btn-success.emailbutton{
-    color: white;
-    background-color: #625d8e;
-    border-color: white;    
-
-}
 
 .input-group.email{
     width:80%;
