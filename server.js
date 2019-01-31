@@ -54,12 +54,14 @@ app.get("/new_poll", (req, res) => {
 
 // poll vote page
 app.get("/poll/:id", (req, res) => {
-  if (cookie){
+  const userID = req.session.userID;
+  if (userID ){
     const templateVars = { poll: poll, user: email, cookie: cookie };
 
   res.render("pollshow", templateVars);
   }else{
-    res.redirect("/");
+    const userID = bcrypt.hashSync(ID(PK), 10);
+    req.session.userID = userID;
   }
 });
 
@@ -88,11 +90,13 @@ app.post("/new_poll", (req, res) => {
 
 // poll vote page
 app.post("/poll/:id", (req, res) => {
-  if (userID){
+  const userID = req.session.userID;
+  const isValidcookie = bcrypt.compareSync(userID);
+  if (isValidcookie){
     const templateVars = { poll: poll, user: email, cookie: cookie };
   //poll count goes here
   res.render("pollshow", templateVars);
-  }else if(userID already voted){
+  }else if(isValidcookie /* if already voted */){
 
     const err = "You are not allowed here!";
     const templateVars = { poll: poll, cookie: cookie, error: err };
