@@ -52,8 +52,14 @@ exports.seed = function(knex, Promise) {
       {id: 2, option_id: options[1].id, user_cookie: 1, point_weight: 0},
       {id: 3, option_id: options[0].id, user_cookie: 2, point_weight: 0},
       {id: 4, option_id: options[1].id, user_cookie: 2, point_weight: 1},
-      {id: 5, option_id: options[0].id, user_cookie: 3, point_weight: 1},
-      {id: 6, option_id: options[1].id, user_cookie: 3, point_weight: 0}
+      {id: 5, option_id: options[2].id, user_cookie: 1, point_weight: 1},
+      {id: 6, option_id: options[3].id, user_cookie: 1, point_weight: 0},
+      {id: 7, option_id: options[2].id, user_cookie: 3, point_weight: 1},
+      {id: 8, option_id: options[3].id, user_cookie: 3, point_weight: 0},
+      {id: 9, option_id: options[4].id, user_cookie: 2, point_weight: 0},
+      {id: 10, option_id: options[5].id, user_cookie: 2, point_weight: 1},
+      {id: 11, option_id: options[4].id, user_cookie: 3, point_weight: 1},
+      {id: 12, option_id: options[5].id, user_cookie: 3, point_weight: 0}
     ])
     .returning('*')
   }
