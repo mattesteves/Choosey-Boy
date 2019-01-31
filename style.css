@@ -1,42 +1,48 @@
-*{
-    font-family: sans-serif;
-    margin: 0, auto;
-    padding: 0;
-
+.test {
+    background-color:#625d8e;
+    justify-content: center;
+    background-image: url("square_bg.png");
 }
 
-body{
-    background-color:#171738;
-    color:#DCEDFF;
-    margin:0;
+.logotext{
+    padding: 1rem;
+    font-family:'Just Another Hand', cursive;
+    font-size: 7rem;
+    max-width:80%;
+    margin: auto;
+    color:white;
+    text-align:center;
 }
-
-header {
-    background-color:#0D1321;
-    margin:0;
-    height:10em;
-}
-h1{ 
-    text-align: center;
-    font-family: 'Just Another Hand', cursive;
-    font-size: 7em;
-    margin:0;
-    padding: 3rem;
-}
-
-main{
-
-    text-align: center;
-    width: 66%;
+.pullquote{
+    max-width:60%;
+    font-size:1.5rem;
     margin:auto;
-    margin-top: 10%;    
-    background:#0D1321;
+}
+.main-content{
+    margin:auto;
+    margin-top: 6%;
+    color:white;
+    width:80%;
+    justify-content: center;
+    text-align:center;  
+}
+button.btn.btn-outline-secondary.start{
+    font-size: 1.5rem;
+    padding:1.5rem;
+    margin:2rem;
+    color: #625d8e;
+    background-color: white;
 }
 
-#newpoll .button{
-    border:none;
-    border-radius:23px;
-    background-color:#5603AD;
-    width: 50%;
-    height:2rem;
+button.btn.btn-outline-secondary.start:hover{
+
+    color: white;
+    background-color: #625d8e;
+    border-color: white;
+}
+
+.input-group.email{
+    width:40%;
+    margin:auto;
+    text-align:center;
 }
