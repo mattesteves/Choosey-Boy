@@ -1,0 +1,42 @@
+*{
+    font-family: sans-serif;
+    margin: 0, auto;
+    padding: 0;
+
+}
+
+body{
+    background-color:#171738;
+    color:#DCEDFF;
+    margin:0;
+}
+
+header {
+    background-color:#0D1321;
+    margin:0;
+    height:10em;
+}
+h1{ 
+    text-align: center;
+    font-family: 'Just Another Hand', cursive;
+    font-size: 7em;
+    margin:0;
+    padding: 3rem;
+}
+
+main{
+
+    text-align: center;
+    width: 66%;
+    margin:auto;
+    margin-top: 10%;    
+    background:#0D1321;
+}
+
+#newpoll .button{
+    border:none;
+    border-radius:23px;
+    background-color:#5603AD;
+    width: 50%;
+    height:2rem;
+}
