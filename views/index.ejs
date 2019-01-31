@@ -1,17 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home Page</title>
+<% include partials/_header.ejs %>
 
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <blockquote class="pullquote">
+        With Choosey Boy you can vote on the choices that you were too indecicive to make before.
+    </blockquote>
 
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-  </head>
+    <button type="button" class="btn btn-outline-secondary start">
+        <i class="fas fa-edit"></i>
+        Create a poll
+    </button>
 
-  <body>
-    <h1>Hello World!</h1>
-  </body>
-</html>
+    <div class="input-group email">
+        <input type="text" name="email" class="form-control" placeholder="Your e-mail address" aria-label="" aria-describedby="basic-addon1">
+        <div class="input-group-append">
+            <button class="btn btn-success emailbutton" type="button"><i class="fas fa-search"></i> Find my polls</button>
+        </div>
+    </div> 
+    </div>
+    <div class="col"></div>
+    
+    <% include partials/_footer.ejs %>

@@ -1,0 +1,58 @@
+$bg-purp: #625d8e;
+
+.whole_thing {
+    background-color: $bg-purp;
+    justify-content: center;
+    background-image: url("/styles/images/square_bg.png");
+}
+
+.logotext{
+    padding: 1rem;
+    font-family:'Just Another Hand', cursive;
+    font-size: 7rem;
+    max-width:80%;
+    margin: auto;
+    margin-bottom:10%;
+    color:white;
+    text-align:center;
+    text-shadow: .2rem .2rem darkgray;
+}
+.pullquote{
+
+    font-size:1.5rem;
+    margin-bottom: 15%;
+    
+}
+
+.col-6.maincon{
+    color:white;
+    text-align:center;
+    
+    button.btn.btn-outline-secondary.start{
+        font-size: 1.5rem;
+    
+        color: $bg-purp;
+        background-color: white;
+        margin-bottom:10%;
+
+    }
+    button.btn.btn-outline-secondary.start:hover{
+    
+        color: white;
+        background-color: $bg-purp;
+        border-color: white;
+    }
+
+    button.btn.btn-success.emailbutton{
+        color: white;
+        background-color:$bg-purp;
+        border-color: white;    
+    
+    }
+}
+
+
+.input-group.email{
+    width:80%;
+    margin:auto;
+}

@@ -15,8 +15,6 @@ $('.btn btn-success emailbutton').on('submit', function(event) {
 
 
 
-
-
 $(() => {
   $.ajax({
     method: "GET",
