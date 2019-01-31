@@ -12,6 +12,7 @@ $bg-purp: #625d8e;
     font-size: 7rem;
     max-width:80%;
     margin: auto;
+    margin-bottom:10%;
     color:white;
     text-align:center;
     text-shadow: .2rem .2rem darkgray;
@@ -41,7 +42,7 @@ $bg-purp: #625d8e;
         background-color: $bg-purp;
         border-color: white;
     }
-    
+
     button.btn.btn-success.emailbutton{
         color: white;
         background-color:$bg-purp;
