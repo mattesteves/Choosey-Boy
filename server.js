@@ -58,7 +58,7 @@ app.get("/poll/:id", (req, res) => {
   if (userID ){
     const templateVars = { poll: poll, user: email, cookie: cookie };
 
-  res.render("pollshow", templateVars);
+    res.render("pollshow", templateVars);
   }else{
     const userID = bcrypt.hashSync(ID(PK), 10);
     req.session.userID = userID;
@@ -77,12 +77,13 @@ app.get("/poll/:id/results", (req, res) => {
 
 // new poll page
 app.post("/new_poll", (req, res) => {
-  if (user){
+  const email = req.body.email;
+  if (email){
     const templateVars = { poll: poll, user: email, cookie: cookie };
     res.render("/poll/:id", templateVars);
     res.redirect(/poll/:id);
   }else{
-    res.redirect("/");
+    res.redirect(302,"/");
   }
 
 });
@@ -102,7 +103,7 @@ app.post("/poll/:id", (req, res) => {
     const templateVars = { poll: poll, cookie: cookie, error: err };
     res.render("pollshow", templateVars);
   }else{
-    res.redirect("/");
+    res.redirect(302,"/");
   }
 });
 
