@@ -1,21 +1,34 @@
 <% include partials/_header.ejs %>
 
-What are you choosing?<br>
-<input class="form-control form-control-lg" type="text" placeholder="What's the ultimate breakfast food?">
+<div id="choose_title">
+What are you choosing today?<br>
+
+</div>
+<input class="form-control form-control-lg" type="text" placeholder="Ex: What's the ultimate breakfast food?">
+<br>
 
 <div class="option-container">
-    <div class="ind_option">
-        Option 1:<br>
-        <input class="form-control form-control-lg new_option" type="text" placeholder="Pancakes">
-        <i class="fas fa-backspace"></i> 
-        <br>
-    </div>
 
     <div class="ind_option">
-        Option 2:<br>
-        <input class="form-control form-control-lg new_option" type="text" placeholder="Waffles">
-        <i class="fas fa-backspace"></i> <br>   
+            <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Waffles" aria-label="" aria-describedby="basic-addon1">
+                    <div class="input-group-append">
+                      <button class="btn btn-success" type="button"><i class="fas fa-backspace">    </i></button>
+                    </div>
+            </div>
+            <br>
+     </div>
+
+    <div class="ind_option">
+            <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Pancakes" aria-label="" aria-describedby="basic-addon1">
+                    <div class="input-group-append">
+                      <button class="btn btn-success" type="button"><i class="fas fa-backspace">    </i></button>
+                    </div>
+                </div><br>
     </div>
+
+
 </div> <!--end of options container-->
 
     <br>

@@ -16,7 +16,6 @@ $bg-purp: #625d8e;
     font-size: 800%;
 
     margin: auto;
-    margin-bottom:5%;
     color:white;
     text-align:center;
     text-shadow: .2rem .2rem darkgray;
@@ -25,7 +24,7 @@ $bg-purp: #625d8e;
     }
     a:hover{
         text-decoration: none;
-        color: #cdfdfb;
+        color:white;
     }
 }
 .pullquote{
@@ -63,21 +62,23 @@ $bg-purp: #625d8e;
     }
 }
 
-
-.form-control.form-control-lg{
-    display:inline;
-    width:80%;
-    margin:0;
+.ind_option{
+    width:60%;
+    margin: auto;   
+}
+.ind_option button{
+    color: white;
+    background-color: rgba(255, 0, 0, 0.527);
+    border-color:rgba(255, 0, 0, 0.527);
+    border:none;
+}
+.ind_option button:hover{
+    background-color: rgba(255, 0, 0, 0.527);
+    border-color:rgba(255, 0, 0, 0.527); 
+    border:none;
 }
 
-.form-control.form-control-lg.new_option{
-    display:inline;
-    width:40%;
-    margin:0;
-}
-
-.fas.fa-backspace{
-    color: rgb(233, 91, 72);
-    padding: .5rem;
-    font-size: 1.5rem;
-}
+#choose_title{
+    padding-bottom:2rem;
+    font-size:2rem; 
+  }

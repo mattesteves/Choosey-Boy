@@ -19,14 +19,22 @@ $( '.btn.btn-outline-secondary.start.add-option' ).click(function() {
 
     `
 <div class="ind_option">
-Option ${counter}:<br>
-    <input class="form-control form-control-lg new_option" type="text" placeholder="Waffles">
-    <i class="fas fa-backspace"></i>  <br>
+    <div class="input-group">
+            <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+            <div class="input-group-append">
+              <button class="btn btn-success" type="button"><i class="fas fa-backspace">    </i></button>
+            </div>
+    </div>
+    <br>
 </div>
+
 `
   );
 });
 
-$('.fas.fa-backspace').click(function(){
-  $(this).closest('div').remove(); 
+$('.option-container').on('click', 'button', function(){
+  $(this).closest('div .ind_option').detach();
+  $(this).closest('div .ind_option').remove();
+  counter-- 
 });
+
