@@ -13,7 +13,7 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
-const insertQueries = require("./public/scripts/insertQueries.js")
+
 
 const insertQueries = require('./public/scripts/insertQueries.js')(knex);
 
@@ -90,25 +90,27 @@ app.get("/poll/:id/results", (req, res) => {
 // new poll page
 app.post("/new_poll", (req, res) => {
 
-  const userEmail = req.body.email;
-  console.log("User email: ",userEmail)
-  if (userEmail){
-    let templateVars;
-    // const templateVars = { poll: poll, user: email, cookie: cookie };
+ const userEmail = req.body.email;
+ console.log("User email: ",userEmail)
+ if (userEmail){
+   let templateVars;
+   // const templateVars = { poll: poll, user: email, cookie: cookie };
 
-    //create poll, generate poll id
-    let value ="tesT VALUE";
+   insertQueries.insertUser(userEmail).then(() => {
+     insertQueries.insertPoll(userEmail, '2222222', ['first option', 'second option'], ['',''], insertQueries.insertOptions)
+   })
+   //create poll, generate poll id
 
-    let id = insertQueries.insertpoll(userEmail,value)
-    let urlShare = "http://localhost:8080/poll/"+id;
-    let urlAdmin = "http://localhost:8080/results/"+id;
-    //send email
-    sendEmail(userEmail,urlShare,urlAdmin);
-    res.render("/poll/:id", templateVars);
-    res.redirect('/poll/:id');
-  }else{
-    res.redirect(302,'/');
-  }
+   // let id = 1234
+   // let urlShare = "http://localhost:8080/poll/"+id;
+   // let urlAdmin = "http://localhost:8080/results/"+id;
+   // //send email
+   // sendEmail(userEmail,urlShare,urlAdmin);
+   // res.render("/poll/:id", templateVars);
+   // res.redirect('/poll/:id');
+ }else{
+   res.redirect(302,'/');
+ }
 
 });
 
