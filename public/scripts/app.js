@@ -54,20 +54,15 @@ $('.form-control.option_val').each(function(){
 
 
 $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-up', function(){
- console.log($(this).closest('div .pollshow_indoption').prev())
   if ($(this).closest('div .pollshow_indoption').prev().length === 0){
     return
   }
- 
- 
   { $(this).closest('div .pollshow_indoption').slideUp('', function(){
   $(this).closest('div .pollshow_indoption').prev().insertAfter($(this).closest('div .pollshow_indoption'))});
 $(this).closest('div .pollshow_indoption').slideDown('');}
-
 });
 
-$('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
-  console.log($(this).closest('div .pollshow_indoption')); 
+$('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){ 
   if ($(this).closest('div .pollshow_indoption').next().length === 0){
     return
   }
