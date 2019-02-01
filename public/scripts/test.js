@@ -1,8 +1,8 @@
-// const queries = require('./queries.js');
+const queries = require('./insertQueries.js');
 
+// queries.insertUser('aaaasddf@gmail.com')
+// queries.insertPoll('mike@gmail.com', 'NewPOOOLLLLL', ['aaasdfaa', 'ffbb', 'ccccc'], ['desc for aaa', '', 'desc for c'], queries.insertOptions)
 
-// queries.insertUser('asdf@gmail.com', queries.selectUserByEmail);
-// queries.insertPoll('asdf@gmail.com', 'POLLLL', ['aaaa', 'bb', 'ccccc'], ['desc for aaa', '', 'desc for c'], queries.selectUserByEmail)
 
 // queries.insertVotes('Orange', 18, 4, queries.selectOptionByValue)
 

@@ -11,39 +11,39 @@ const knex = require('knex')({
     ssl      : process.env.DB_SSL
   }
 })
-
 //adds user to database if email does not exist in users table
 async function insertUser(email) {
   try {
     let usersEmail = await knex('users').where({email: email});
     if(usersEmail[0]) {
-      await knex.destroy();
       throw 'email in database';
     }
     await knex('users').insert({email: email});
-    await knex.destroy();
   } catch(e) {
     console.log('error inserting user into users table: ', e);
   }
 }
 
-// inserts new poll into polls table
+// inserts new poll into polls table and calls insert option function for each option
 async function insertPoll(email, value, options, descriptions, insertData) {
   try{
     let user = await knex.select('id').from('users').where({email: email});
     let userId = user[0].id;
     let newPollId = await knex('polls').insert({user_id: userId, value: value}).returning('id');
 
-      //add each option in array
-      await options.forEach((option, i) => {
-        insertData(newPollId[0], option, descriptions[i]);
-      });
+    //add each option in array
+    await options.forEach((option, i) => {
+      insertData(newPollId[0], option, descriptions[i]);
+    });
 
-    await knex.destroy();
+
+    return newPollId;
   } catch (e) {
     console.log('error inserting poll into polls table: ', e);
   }
 }
+
+// let pollId = insertPoll('mike@gmail.com', 'polllll', ['first option', 'second option'], ['',''], insertOptions)
 
 //inserts options for new poll
 async function insertOptions(pollId, option, description){
@@ -60,7 +60,6 @@ async function insertVotes(optionValue, userCookie, pointWeight) {
     let optionId = await knex.select('id').from('options').where({value: optionValue});
     await knex('votes').insert({option_id: optionId[0].id, user_cookie: userCookie, point_weight: pointWeight});
 
-    await knex.destroy();
   }catch (e) {
     console.log('error inserting vote into votes table: ', e);
   }
