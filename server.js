@@ -16,7 +16,7 @@ const knexLogger  = require('knex-logger');
 
 
 const insertQueries = require('./public/scripts/insertQueries.js')(knex);
-
+const returnQueries = require('./public/scripts/returnQueries.js')(knex);
 
 // using SendGrid's v3 Node.js Library
 // https://github.com/sendgrid/sendgrid-nodejs
@@ -64,17 +64,33 @@ app.get("/new_poll", (req, res) => {
 
 // poll vote page
 app.get("/poll/:id", (req, res) => {
-  // const userID = req.session.userID;
- const templateVars = {};
-  const userID = 1;
-  if (userID ){
-    // const templateVars = { poll: poll, user: email, cookie: cookie };
-    console.log('in get poll/:id request')
-    res.render("pollshow", templateVars);
-  }else{
-    const userID = bcrypt.hashSync(ID(PK), 10);
-    req.session.userID = userID;
-  }
+  const id = req.params.id;
+  // const isValidcookie = req.session.pollId;
+  const isValidcookie = 1;
+  if (isValidcookie){
+
+      let optionVars = returnQueries
+      .getOptions(id).then((OptionInput) => {
+        console.log(OptionInput)
+        if(OptionInput.length > 0){
+          const description = "new world"
+          const templateVars = { poll:id , value:OptionInput , description : description };
+
+
+        //poll count goes here
+        res.render("pollshow", templateVars);
+
+        }else{
+        res.status(403).send('Please input valid option');
+        }
+      });
+
+      console.log(optionVars)
+
+    }else{
+      res.redirect(302,'/poll/');
+    }
+
 });
 
 
@@ -90,9 +106,10 @@ app.get("/poll/:id/results", (req, res) => {
 // new poll page
 app.post("/new_poll", (req, res) => {
 
-
   const userEmail = req.body.email;
-
+  const pollValue = req.body.pollValue;
+  const options = req.body.options;
+  console.log("this is 1",req.body.email)
   if (userEmail){
     let templateVars;
     // const templateVars = { poll: poll, user: email, cookie: cookie };
@@ -100,7 +117,7 @@ app.post("/new_poll", (req, res) => {
     insertQueries.insertUser(userEmail)
       .then(() => {
         insertQueries
-          .insertPoll(userEmail, 'second poll', ['option1', 'option2'], ['',''], insertQueries.insertOptions)
+          .insertPoll(userEmail, pollValue, options, options, insertQueries.insertOptions)
           .then((pollId) => {
 
           //create poll, generate poll id
@@ -125,12 +142,16 @@ app.post("/new_poll", (req, res) => {
 });
 
 
+
 // poll vote page
 app.post("/poll/:id", (req, res) => {
-  const userID = req.session.userID;
-  const isValidcookie = bcrypt.compareSync(userID);
+  const id = req.params.id;
   if (isValidcookie){
-    const templateVars = { poll: poll, user: email, cookie: cookie };
+
+      let optionVars = returnQueries.getOptions(id).then(() => {
+        const templateVars = { poll: id};
+})
+
   //poll count goes here
   res.render("pollshow", templateVars);
   }else if(isValidcookie /* if already voted */){

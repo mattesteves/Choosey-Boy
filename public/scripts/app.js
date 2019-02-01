@@ -46,8 +46,19 @@ $('.form-control.option_val').each(function(){
   if (emailOutput === "" || emailOutput === null) {
     $(".error").text("Error ! Not a valid input.");
   }else{
-    $.post( "/new_poll",emailOutput);
-  }
+     $.ajax({
+      method: "POST",
+      url: "/new_poll",
+      data: {
+        email: emailOutput,
+        pollValue: pollQuestion,
+        options: optionOutput
+      }
+    }).then((data) => {
+       window.location.href = data.url
+     //console.log(data)
+    })
+ }
 
 });
 

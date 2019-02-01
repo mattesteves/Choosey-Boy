@@ -23,7 +23,27 @@ module.exports = function returnQueries(knex) {
       } catch(e) {
         console.log('error summing option weight');
       }
-    }
+    },
+
+    //return options of givin id
+   getOptions: async function(pollId) {
+     try{
+       let options = await knex('options').where({poll_id: pollId});
+       let optionValues = [];
+       options.forEach((option) => {
+         optionValues.push(option.value);
+       })
+       return optionValues;
+     } catch(e) {
+       console.log('error getting options for id');
+     }
+   }
+
+
+
+
+
+
 
   }
 }
