@@ -95,15 +95,18 @@ app.post("/new_poll", (req, res) => {
     let templateVars;
     // const templateVars = { poll: poll, user: email, cookie: cookie };
 
+    insertQueries.insertUser(userEmail).then(() => {
+      insertQueries.insertPoll(userEmail, '2222222', ['first option', 'second option'], ['',''], insertQueries.insertOptions)
+    })
     //create poll, generate poll id
 
-    let id = 1234
-    let urlShare = "http://localhost:8080/poll/"+id;
-    let urlAdmin = "http://localhost:8080/results/"+id;
-    //send email
-    sendEmail(userEmail,urlShare,urlAdmin);
-    res.render("/poll/:id", templateVars);
-    res.redirect('/poll/:id');
+    // let id = 1234
+    // let urlShare = "http://localhost:8080/poll/"+id;
+    // let urlAdmin = "http://localhost:8080/results/"+id;
+    // //send email
+    // sendEmail(userEmail,urlShare,urlAdmin);
+    // res.render("/poll/:id", templateVars);
+    // res.redirect('/poll/:id');
   }else{
     res.redirect(302,'/');
   }
