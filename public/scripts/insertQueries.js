@@ -17,35 +17,20 @@ function disconnect() {
   knex.destroy();
 }
 
-// select user through email
-function selectUserByEmail(email){
-  return(
-    knex.select('id').from('users')
-      .where({
-        email: email
-      })
-      .returning('*')
-      .catch(err => console.log('error selecting user by email', err))
-  )
+async function insertUser(email) {
+  try {
+    let usersEmail = await knex('users').where({email: email});
+    if(usersEmail[0]) {
+      await knex.destroy();
+      throw 'email in database';
+    }
+    await knex('users').insert({email: email});
+    await knex.destroy();
+  } catch(e) {
+    console.log('error inserting user into users table: ', e);
+  }
 }
-
-//inserts new user into users table
-function insertUser(email, selectUser) {
-  return(
-    selectUser(email).then(user => {
-      if(!user[0]){
-        knex('users')
-          .insert({
-            email: email
-          })
-          .catch(err => console.log('error inputing user', err))
-      } else{
-        console.log('user in database');
-      }
-    })
-    .catch(err => console.log('error selecting user with input value', err))
-  )
-}
+insertUser('michael@gmail.com')
 
 // inserts new poll into polls table
 function insertPoll(email, value, options, descriptions, selectUser) {
@@ -109,37 +94,10 @@ function insertVotes(optionValue, userCookie, pointWeight, selectOption) {
   )
 }
 
-//return title of target poll
-async function returnFromDb1(pollId) {
- try {
-  let selectPoll =  await knex.select('value').from('polls').where({id: pollId});
-  return selectPoll[0].value;
-  knex.destroy();
- } catch(e) {
-  console.log('return poll title error');
- }
-}
-
-//return value from target table
-async function getValue(table, returnValue, id) {
- try {
-  let selectRow =  await knex.select(returnValue).from(table).where({id: id});
-  return selectRow[0][returnValue];
- } catch(e) {
-  console.log('return poll title error');
- }
-}
-
-//return sum of points for option
-
-
 module.exports = {
   disconnect: disconnect,
-  selectUserByEmail: selectUserByEmail,
-  insertUser: insertUser,
   insertPoll: insertPoll,
   insertOptions: insertOptions,
   selectOptionByValue: selectOptionByValue,
-  insertVotes: insertVotes,
-  getValue: getValue
+  insertVotes: insertVotes
 }
