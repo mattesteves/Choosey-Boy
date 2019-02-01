@@ -13,7 +13,7 @@ $bg-purp: #625d8e;
 .logotext{
     padding: 1rem;
     font-family:'Just Another Hand', cursive;
-    font-size: 800%;
+    font-size: 600%;
 
     margin: auto;
     color:white;
@@ -78,8 +78,23 @@ $bg-purp: #625d8e;
     border-color:rgba(255, 0, 0, 0.527); 
     border:none;
 }
+.form-control.form-control-lg{
+    margin-bottom: 2%;
+}
 
 #choose_title{
     padding-bottom:2rem;
-    font-size:1.5rem; 
+    font-size:1rem; 
   }
+
+.input-group.emailNewPoll{
+    width:60%;
+    margin:auto;
+    margin-bottom:4%;
+}
+
+.form-control.form-control.newPollTitle{
+    width: 80%;
+    margin:auto;
+    margin-bottom:2%;
+}
