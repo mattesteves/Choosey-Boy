@@ -1,14 +1,6 @@
-$(() => {
-  $.ajax({
-    method: "GET",
-    url: "/api/users"
-  }).done((users) => {
-    for(user of users) {
-      $("<div>").text(user.name).appendTo($("body"));
-    }
-  });;
-});
-
+$(document).ready(function eventhandlers(){
+  
+let templateVars={};
 
 let counter= 2;
 
@@ -43,11 +35,29 @@ $('.btn.btn-outline-secondary.start.subpoll').click(function(){
   let pollQuestion = $('.form-control.newPollTitle').val();
   let optionOutput=[];
 
-  $('.form-control.option_val').each(function(){
-      optionOutput.push($(this).val());
-    })
-    console.log(pollQuestion);
-    console.log(optionOutput);
-    console.log('This is email', emailOutput)
+  
+    
+$('.form-control.option_val').each(function(){
+    optionOutput.push($(this).val());
+  })
+  console.log(pollQuestion);
+  console.log(optionOutput);
+  console.log('This is email', emailOutput)
+  if (emailOutput === "" || emailOutput === null) {
+    $(".error").text("Error ! Not a valid input.");
+  }else{
+    $.post( "/new_poll",emailOutput);
+  }
+  
+});
+
+
+
+$('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-up', function(){
+$(this).closest('div .pollshow_indoption').slideUp('slow', function(){
+  $(this).closest('div .pollshow_indoption').prev().insertAfter($(this).closest('div .pollshow_indoption'))});
+$(this).closest('div .pollshow_indoption').slideDown('slow');
+});
+
 
 });

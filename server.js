@@ -81,20 +81,33 @@ app.get("/poll/:id/results", (req, res) => {
 
 // new poll page
 app.post("/new_poll", (req, res) => {
-  // const email = req.body.email;
-  const email = "test@test.com";
-  if (email){
+
+  const userEmail = req.body.email;
+  console.log("User email: ",userEmail)
+  if (userEmail){
+    let templateVars;
     // const templateVars = { poll: poll, user: email, cookie: cookie };
-
-    //create poll
-
-    res.render("/poll/:id", templateVars);
-    res.redirect('/poll/:id');
+ 
+    insertQueries.insertUser(userEmail).then(() => {
+      insertQueries.insertPoll(userEmail, 'first poll', ['first option', 'second option'], ['',''], insertQueries.insertOptions).then((pollId) => {
+        console.log(pollId);
+        //create poll, generate poll id
+        let urlShare = "http://localhost:8080/poll/"+pollId[0];
+        let urlAdmin = "http://localhost:8080/results/"+pollId[0];
+ 
+        //send email
+        sendEmail(userEmail,urlShare,urlAdmin);
+        // res.render("/poll/:id", templateVars);
+        // res.redirect('/poll/:id');
+      })
+      .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
   }else{
     res.redirect(302,'/');
   }
-
-});
+ 
+ });
 
 
 // poll vote page
