@@ -6,40 +6,50 @@ What are you choosing today?<br>
 </div>
 <input class="form-control form-control-lg" type="text" placeholder="Ex: What's the ultimate breakfast food?">
 <br>
+<label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
+<div class="input-group mb-2 mr-sm-2">
+  <div class="input-group-prepend">
+    <div class="input-group-text">@</div>
+  </div>
+  <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Username">
+</div>
+
 
 <div class="option-container">
 
     <div class="ind_option">
             <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Waffles" aria-label="" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control option_val" placeholder="Waffles" aria-label="" aria-describedby="basic-addon1">
                     <div class="input-group-append">
                       <button class="btn btn-success" type="button"><i class="fas fa-backspace">    </i></button>
                     </div>
             </div>
-            <br>
      </div>
 
     <div class="ind_option">
             <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Pancakes" aria-label="" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control option_val" placeholder="Pancakes" aria-label="" aria-describedby="basic-addon1">
                     <div class="input-group-append">
                       <button class="btn btn-success" type="button"><i class="fas fa-backspace">    </i></button>
                     </div>
-                </div><br>
+                </div>
     </div>
 
 
 </div> <!--end of options container-->
 
     <br>
+    
     <button type="button" class="btn btn-outline-secondary start add-option">
         <i class="fas fa-plus-circle"></i>
         Another option
     </button>
     <br>
-    <button type="button" class="btn btn-outline-secondary start">
+    <button type="button" class="btn btn-outline-secondary start subpoll">
         Create Poll
         <i class="fas fa-check-circle"></i> 
     </button>
+
+
 
 <% include partials/_footer.ejs %>

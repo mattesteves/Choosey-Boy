@@ -20,12 +20,11 @@ $( '.btn.btn-outline-secondary.start.add-option' ).click(function() {
     `
 <div class="ind_option">
     <div class="input-group">
-            <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+            <input type="text" class="form-control option_val" placeholder="" aria-label="" aria-describedby="basic-addon1">
             <div class="input-group-append">
               <button class="btn btn-success" type="button"><i class="fas fa-backspace">    </i></button>
             </div>
     </div>
-    <br>
 </div>
 
 `
@@ -38,3 +37,13 @@ $('.option-container').on('click', 'button', function(){
   counter-- 
 });
 
+$('.btn.btn-outline-secondary.start.subpoll').click(function(){
+  let optionOutput=[];
+
+
+$('.form-control.option_val').each(function(){
+      optionOutput.push($(this).val());
+    })
+    console.log(optionOutput)
+
+});
