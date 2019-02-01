@@ -15,7 +15,7 @@ const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
 const insertQueries = require('./public/scripts/insertQueries.js')(knex);
-
+const returnQueries = require('./public/scripts/returnQueries.js')(knex);
 
 // using SendGrid's v3 Node.js Library
 // https://github.com/sendgrid/sendgrid-nodejs
@@ -108,8 +108,6 @@ app.post("/new_poll", (req, res) => {
           //send email
           sendEmail(userEmail,urlShare,urlAdmin);
 
-          // res.render("pollshow");
-          // res.redirect(urlShare);
           res.json({url: urlShare})
         })
         .catch(err => console.log(err));
