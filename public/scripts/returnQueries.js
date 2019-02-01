@@ -41,3 +41,4 @@ module.exports = {
   getValue: getValue,
   weightSum: weightSum
 }
+
