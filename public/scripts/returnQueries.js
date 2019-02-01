@@ -12,22 +12,10 @@ const knex = require('knex')({
   }
 })
 
-//return title of target poll
-async function getPollValue(pollId) {
- try {
-  let selectPoll =  await knex.select('value').from('polls').where({id: pollId});
-  return selectPoll[0].value;
-  knex.destroy();
- } catch(e) {
-  console.log('return poll value error');
- }
-}
-
 //return value from target table
 async function getValue(table, returnValue, id) {
   try {
     let row =  await knex.select(returnValue).from(table).where({id: id});
-    knex.destroy();
     return row[0][returnValue];
   } catch(e) {
     console.log('return poll title error');
@@ -42,7 +30,6 @@ async function weightSum(optionId) {
     options.forEach((option) => {
       totalWeight += option.point_weight;
     });
-    knex.destroy();
     return totalWeight;
   } catch(e) {
     console.log('error summing option weight');
@@ -51,7 +38,6 @@ async function weightSum(optionId) {
 //return poll id
 
 module.exports = {
-  getPollValue: getPollValue,
   getValue: getValue,
   weightSum: weightSum
 }

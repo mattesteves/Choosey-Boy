@@ -1,4 +1,4 @@
-const queries = require('./insertQueries.js');
+const queries = require('./returnQueries.js');
 
 // queries.insertUser('aaaasddf@gmail.com')
 // queries.insertPoll('mike@gmail.com', 'NewPOOOLLLLL', ['aaasdfaa', 'ffbb', 'ccccc'], ['desc for aaa', '', 'desc for c'], queries.insertOptions)
