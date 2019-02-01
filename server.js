@@ -14,6 +14,11 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
+
+// using SendGrid's v3 Node.js Library
+// https://github.com/sendgrid/sendgrid-nodejs
+const sgMail = require('@sendgrid/mail');
+
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 
@@ -81,13 +86,20 @@ app.get("/poll/:id/results", (req, res) => {
 
 // new poll page
 app.post("/new_poll", (req, res) => {
-  // const email = req.body.email;
-  const email = "test@test.com";
-  if (email){
+
+  const userEmail = req.body.email;
+  console.log("User email: ",userEmail)
+  if (userEmail){
+    let templateVars;
     // const templateVars = { poll: poll, user: email, cookie: cookie };
 
-    //create poll
+    //create poll, generate poll id
 
+    let id = 1234
+    let urlShare = "http://localhost:8080/poll/"+id;
+    let urlAdmin = "http://localhost:8080/results/"+id;
+    //send email
+    sendEmail(userEmail,urlShare,urlAdmin);
     res.render("/poll/:id", templateVars);
     res.redirect('/poll/:id');
   }else{
@@ -123,6 +135,22 @@ app.listen(PORT, () => {
   console.log("Choosey Boy listening on port " + PORT);
 
 });
+
+
+
+function sendEmail(to,pollLink,adminLink){
+  console.log(pollLink)
+
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  const msg = {
+    to: to,
+    from: to,
+    subject: 'ChooseyBoy Poll links',
+    text: 'Please find your poll share and Admin links below',
+    html:"Link to the poll: "+ pollLink + " <br>" + "Admin link : "+ adminLink,
+  };
+  sgMail.send(msg);
+}
 
 /*
 route paths

@@ -1,32 +1,17 @@
-"use strict";
 $(document).ready(function() {
+/* *******AJAX POST Request Event handler for email submit********* */
 
-
-$('.btn btn-success emailbutton').on('submit', function(event) {
+$("#form123").click( function(event) {
 
   event.preventDefault();
-  const email = $(".form-control");
-
-  if (email.val() === "" || email.val() === null) {
-
-  }else{
+  const userEmail = $("#email123");
+  console.log("user email 3: ", userEmail);
+  if (userEmail.val() === "" || userEmail.val() === null) {
     $(".error").text("Error ! Not a valid input.");
-};
+  }else{
+       $.post( "/new_poll",userEmail);
+  }
 
-
-
-$(() => {
-  $.ajax({
-    method: "GET",
-    url: "/api/users"
-  }).done((users) => {
-    for(user of users) {
-      $("<div>").text(user.name).appendTo($("body"));
-    }
-  });;
 });
 
-
-
-
-};
+});
