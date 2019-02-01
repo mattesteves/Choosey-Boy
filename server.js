@@ -15,6 +15,8 @@ const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const insertQueries = require("./public/scripts/insertQueries.js")
 
+const insertQueries = require('./public/scripts/insertQueries.js')(knex);
+
 
 // using SendGrid's v3 Node.js Library
 // https://github.com/sendgrid/sendgrid-nodejs
