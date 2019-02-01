@@ -98,3 +98,20 @@ $bg-purp: #625d8e;
     margin:auto;
     margin-bottom:2%;
 }
+
+#favourite{
+white-space: nowrap; 
+overflow: hidden;
+text-overflow: initial;
+width: 60%;
+margin:auto;
+background-color:rgb(255, 0, 221);
+padding: 2rem;  
+border-radius: 15px;  
+font-size: 1rem;
+}
+
+#least_favourite{
+
+
+}

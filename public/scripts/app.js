@@ -38,12 +38,15 @@ $('.option-container').on('click', 'button', function(){
 });
 
 $('.btn.btn-outline-secondary.start.subpoll').click(function(){
+  
   let emailOutput = $('.form-control.emailNewPoll').val();
+  let pollQuestion = $('.form-control.newPollTitle').val();
   let optionOutput=[];
 
   $('.form-control.option_val').each(function(){
       optionOutput.push($(this).val());
     })
+    console.log(pollQuestion);
     console.log(optionOutput);
     console.log('This is email', emailOutput)
 
