@@ -33,10 +33,11 @@ $('.btn.btn-outline-secondary.start.subpoll').click(function(){
   
   let emailOutput = $('.form-control.emailNewPoll').val();
   let pollQuestion = $('.form-control.newPollTitle').val();
-  let optionOutput=[];
+  let optionOutput = [];
+  let votes = [];
 
   
-    
+/* *******AJAX POST Request Event handler for email submit********* */
 $('.form-control.option_val').each(function(){
     optionOutput.push($(this).val());
   })
@@ -71,22 +72,19 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
   $(this).closest('div .pollshow_indoption').slideDown('');
   });
 
+  $('#pollshow_submit').click( function (){
+    let votes =[]
+  $('.option_text').each(function(){
+    votes.push($(this).text() )
+    console.log($(this).text())
+  });
+  console.log(votes)
+  return votes
+  });
 
 });
 
 
-  /* *******AJAX POST Request Event handler for email submit********* */
   
-  $("#form123").click( function(event) {
-  
-   event.preventDefault();
-   const userEmail = $("#email123");
-   console.log("user email 3: ", userEmail);
-   if (userEmail.val() === "" || userEmail.val() === null) {
-     $(".error").text("Error ! Not a valid input.");
-   }else{
-        $.post( "/new_poll",userEmail);
-   }
-  
-  });
+
   
