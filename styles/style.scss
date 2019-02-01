@@ -5,35 +5,46 @@ $bg-purp: #625d8e;
     justify-content: center;
     background-image: url("/styles/images/square_bg.png");
 }
+.container.content_grid{
+    width:100%;
+
+}
 
 .logotext{
     padding: 1rem;
     font-family:'Just Another Hand', cursive;
-    font-size: 7rem;
-    max-width:80%;
+    font-size: 600%;
+
     margin: auto;
-    margin-bottom:10%;
     color:white;
     text-align:center;
     text-shadow: .2rem .2rem darkgray;
+    a{
+        color:white;
+    }
+    a:hover{
+        text-decoration: none;
+        color:white;
+    }
 }
 .pullquote{
 
-    font-size:1.5rem;
+    font-size: 1.5rem;
     margin-bottom: 15%;
     
 }
 
-.col-6.maincon{
+.col-sm-6.maincon{
     color:white;
     text-align:center;
+
     
     button.btn.btn-outline-secondary.start{
-        font-size: 1.5rem;
+        font-size: 1rem;
     
         color: $bg-purp;
         background-color: white;
-        margin-bottom:10%;
+        margin-bottom:5%;
 
     }
     button.btn.btn-outline-secondary.start:hover{
@@ -43,7 +54,7 @@ $bg-purp: #625d8e;
         border-color: white;
     }
 
-    button.btn.btn-success.emailbutton{
+    button.btn.btn-success.submit_button{
         color: white;
         background-color:$bg-purp;
         border-color: white;    
@@ -51,8 +62,56 @@ $bg-purp: #625d8e;
     }
 }
 
+.ind_option{
+    width:60%;
+    margin: auto;   
+    padding-bottom:2%;  
+}
+.ind_option button{
+    color: white;
+    background-color: rgba(255, 0, 0, 0.527);
+    border-color:rgba(255, 0, 0, 0.527);
+    border:none;
+}
+.ind_option button:hover{
+    background-color: rgba(255, 0, 0, 0.527);
+    border-color:rgba(255, 0, 0, 0.527); 
+    border:none;
+}
+.form-control.form-control-lg{
+    margin-bottom: 2%;
+}
 
-.input-group.email{
-    width:80%;
+#choose_title{
+    padding-bottom:2rem;
+    font-size:1rem; 
+  }
+
+.input-group.emailNewPoll{
+    width:60%;
     margin:auto;
+    margin-bottom:4%;
+}
+
+.form-control.form-control.newPollTitle{
+    width: 80%;
+    margin:auto;
+    margin-bottom:2%;
+}
+
+#favourite{
+white-space: nowrap; 
+overflow: hidden;
+text-overflow: initial;
+width: 60%;
+margin:auto;
+background-color:rgb(255, 0, 221);
+padding: 2rem;  
+border-radius: 15px;  
+font-size: 1rem;
+}
+
+#least_favourite{
+
+
 }
