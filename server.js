@@ -77,6 +77,12 @@ app.get("/poll/:id/results", (req, res) => {
 });
 
 
+//temp test results page without vars
+
+app.get("/test", (req,res)=>{
+res.render("results" )
+});
+
 /* ******** POST REQUESTS ******* */
 
 // new poll page
