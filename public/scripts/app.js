@@ -1,29 +1,6 @@
-$(document).ready(function() {
-/* *******AJAX POST Request Event handler for email submit********* */
+$(document).ready(function eventhandlers(){
 
-$("#form123").click( function(event) {
-
-  event.preventDefault();
-  const userEmail = $("#email123");
-  console.log("user email 3: ", userEmail);
-  if (userEmail.val() === "" || userEmail.val() === null) {
-    $(".error").text("Error ! Not a valid input.");
-  }else{
-      $.ajax({
-       method: "POST",
-       url: "/new_poll",
-       data: userEmail,
-     }).then((data) => {
-        window.location.href = data.url
-      console.log(data)
-     })
-  }
-
-});
-
-
-});
-
+let templateVars={};
 
 let counter= 2;
 
@@ -58,12 +35,51 @@ $('.btn.btn-outline-secondary.start.subpoll').click(function(){
   let pollQuestion = $('.form-control.newPollTitle').val();
   let optionOutput=[];
 
-  $('.form-control.option_val').each(function(){
-      optionOutput.push($(this).val());
+
+
+$('.form-control.option_val').each(function(){
+    optionOutput.push($(this).val());
+  })
+  console.log(pollQuestion);
+  console.log(optionOutput);
+  console.log('This is email', emailOutput)
+  if (emailOutput === "" || emailOutput === null) {
+    $(".error").text("Error ! Not a valid input.");
+  }else{
+   $.ajax({
+      method: "POST",
+      url: "/new_poll",
+      data: {
+        email: emailOutput,
+        pollValue: pollQuestion,
+        options: optionOutput
+      }
+    }).then((data) => {
+       window.location.href = data.url
     })
-    console.log(pollQuestion);
-    console.log(optionOutput);
-    console.log('This is email', emailOutput)
+  }
 
 });
 
+
+
+$('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-up', function(){
+  if ($(this).closest('div .pollshow_indoption').prev().length === 0){
+    return
+  }
+  { $(this).closest('div .pollshow_indoption').slideUp('', function(){
+  $(this).closest('div .pollshow_indoption').prev().insertAfter($(this).closest('div .pollshow_indoption'))});
+$(this).closest('div .pollshow_indoption').slideDown('');}
+});
+
+$('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
+  if ($(this).closest('div .pollshow_indoption').next().length === 0){
+    return
+  }
+  $(this).closest('div .pollshow_indoption').slideUp('', function(){
+    $(this).closest('div .pollshow_indoption').next().insertBefore($(this).closest('div .pollshow_indoption'))});
+  $(this).closest('div .pollshow_indoption').slideDown('');
+  });
+
+
+});

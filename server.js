@@ -13,6 +13,11 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
+const cookieSession = require('cookie-session');
+
+app.use(cookieSession({
+  secret: "super_secret"
+}));
 
 const insertQueries = require('./public/scripts/insertQueries.js')(knex);
 const returnQueries = require('./public/scripts/returnQueries.js')(knex);
@@ -61,9 +66,22 @@ app.get("/new_poll", (req, res) => {
   res.render("new_poll", templateVars);
 });
 
+//random string generate function used for ID generation
+function generateRandomString() {
+  let text = '';
+  const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (let randomLetterInc = 0; randomLetterInc < 6; randomLetterInc++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
+}
+
 // poll vote page
 app.get("/poll/:id", (req, res) => {
-  // const userID = req.session.userID;
+  if(!req.session.user_id){
+    req.session.user_id = generateRandomString();
+  }
  const templateVars = {};
   const userID = 1;
   if (userID ){
@@ -89,7 +107,10 @@ app.get("/poll/:id/results", (req, res) => {
 // new poll page
 app.post("/new_poll", (req, res) => {
 
+  console.log(req.body.email)
   const userEmail = req.body.email;
+  const pollValue = req.body.pollValue;
+  const options = req.body.options;
 
   if (userEmail){
     let templateVars;
@@ -98,7 +119,7 @@ app.post("/new_poll", (req, res) => {
     insertQueries.insertUser(userEmail)
       .then(() => {
         insertQueries
-          .insertPoll(userEmail, 'second poll', ['option1', 'option2'], ['',''], insertQueries.insertOptions)
+          .insertPoll(userEmail, pollValue, options, options, insertQueries.insertOptions)
           .then((pollId) => {
 
           //create poll, generate poll id
@@ -117,11 +138,15 @@ app.post("/new_poll", (req, res) => {
     res.redirect(302,'/');
   }
 
-});
+ });
 
 
 // poll vote page
 app.post("/poll/:id", (req, res) => {
+
+
+
+
   const userID = req.session.userID;
   const isValidcookie = bcrypt.compareSync(userID);
   if (isValidcookie){

@@ -25,6 +25,14 @@ module.exports = function returnQueries(knex) {
       }
     },
 
+    checkCookie: async function(cookie) {
+      try {
+
+      } catch(e) {
+        console.log('error summing option weight');
+      }
+    },
+
     //return options of givin id
     getOptions: async function(pollId) {
       try{

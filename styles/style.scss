@@ -100,18 +100,55 @@ $bg-purp: #625d8e;
 }
 
 #favourite{
-white-space: nowrap; 
-overflow: hidden;
-text-overflow: initial;
-width: 60%;
-margin:auto;
-background-color:rgb(255, 0, 221);
-padding: 2rem;  
-border-radius: 15px;  
-font-size: 1rem;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: initial;
+    width:90%;
+    max-width:300px;
+    margin:auto;
+    background-color:rgb(255, 0, 221);
+    padding: 1rem;  
+    border-radius: 15px;  
+    font-size: 100%;
 }
 
 #least_favourite{
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: initial;
+    width:90%;
+    max-width:300px;
+    margin:auto;
+    background-color:rgb(9, 105, 0);
+    padding: 1rem;  
+    border-radius: 15px;  
+    font-size: 100%;
 
+}
 
+.pollshow_indoption{
+
+    background: white;
+    color: $bg-purp;
+    display: block;
+    padding: 1rem;
+    border-radius: 10px;
+    word-wrap: break-word;
+    text-align: center;
+    width:90%;
+    max-width: 300px;
+    margin: 1.5% auto;
+    position: sticky;
+    
+    .fas{
+    font-size:200%;
+    }
+    .fas.fa-arrow-circle-up{
+        padding:1%; 
+        padding-top:0;
+    }
+    .fas.fa-arrow-circle-down{
+        padding: 1%;
+        padding-bottom:0;
+    }
 }

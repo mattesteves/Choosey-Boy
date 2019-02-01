@@ -1,70 +1,48 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet" type="text/css" media="screen" href="style.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="/styles/layout.scss">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-
-
-
-    <!-- Bootstrap stuff don't touch -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Just+Another+Hand|Roboto+Condensed" rel="stylesheet">
-
-
-    <title>Choosey Boy</title>
-
-</head>
-<h1>WORKING!!!!</h1>
-<body class="test">
-    <blockquote class="logotext">Choosey&nbsp;Boy</blockquote>
-
-    <div class="main-content">
-    <blockquote class="pullquote">
-        With Choosey Boy you can vote on the choices that you were too indecicive to make before.
-    </blockquote>
-
-    <button type="button" class="btn btn-outline-secondary start">
-        <i class="fas fa-edit"></i>
-        Create a poll
-    </button>
-
-    <div class="input-group email">
-        <input type="text" name="email" class="form-control" placeholder="Your e-mail address" aria-label="" aria-describedby="basic-addon1">
-        <div class="input-group-append">
-            <button class="btn btn-success emailbutton" type="button"><i class="fas fa-search"></i> Find my polls</button>
-        </div>
-    </div>
-
-    </div>
-
-
-
-        <!-- More Bootstrap stuff, don't touch! -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
-</body>
-</html>
-=======
 <% include partials/_header.ejs %>
 
 <div id="favourite">
     <i class="far fa-smile"></i>&nbsp;MOST&nbsp;FAVOURITEST&nbsp;<i class="far fa-smile"></i>
 </div>
 <br><!-- temporary-->
-<i class="fas fa-arrow-circle-up"></i>
-<i class="fas fa-arrow-circle-down"></i>
-<div id="least_favourite">
 
-    <br><!-- temporary-->
+<div id="pollshow_options">
+    <div class="pollshow_indoption">
+
+    <i class="fas fa-arrow-circle-up"></i>
+       <div  class="option_text">
+           Option 1
+       </div>
+    <i class="fas fa-arrow-circle-down"></i>
+
+    </div>
+    <!--testing options-->
+    <div class="pollshow_indoption">
+        <i class="fas fa-arrow-circle-up"></i>
+            <div  class="option_text">
+                Option 2
+            </div>
+        <i class="fas fa-arrow-circle-down test"></i>
+    </div>
+
+    <div class="pollshow_indoption">
+            <i class="fas fa-arrow-circle-up"></i>
+                <div  class="option_text">
+                    Option 3
+                </div>
+            <i class="fas fa-arrow-circle-down test"></i>
+    </div>
+
+
+
+
+
+
+</div>
+
+<br><!-- temporary-->
+
+
+<div id="least_favourite">
     <i class="fas fa-angry"></i> LEAST FAVOURITEST <i class="fas fa-angry"></i>
 </div>
     <% include partials/_footer.ejs %>
->>>>>>> 52e72695685aaed67e6ec78c536e32d31423cda0
