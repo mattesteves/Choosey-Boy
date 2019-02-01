@@ -1,4 +1,4 @@
-const queries = require('./queries.js');
+// const queries = require('./queries.js');
 
 
 // queries.insertUser('asdf@gmail.com', queries.selectUserByEmail);

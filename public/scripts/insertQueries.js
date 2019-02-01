@@ -12,11 +12,7 @@ const knex = require('knex')({
   }
 })
 
-//disconnect from db
-function disconnect() {
-  knex.destroy();
-}
-
+//adds user to database if email does not exist in users table
 async function insertUser(email) {
   try {
     let usersEmail = await knex('users').where({email: email});
@@ -30,74 +26,49 @@ async function insertUser(email) {
     console.log('error inserting user into users table: ', e);
   }
 }
-insertUser('michael@gmail.com')
 
 // inserts new poll into polls table
-function insertPoll(email, value, options, descriptions, selectUser) {
-  return(
-    selectUser(email).then(user => {
-      if(!user[0]) throw 'email not in database'
-        knex('polls')
-          .insert({
-            user_id: user[0].id, value: value
-          })
-          .returning('*')
+async function insertPoll(email, value, options, descriptions, insertData) {
+  try{
+    let user = await knex.select('id').from('users').where({email: email});
+    let userId = user[0].id;
+    let newPollId = await knex('polls').insert({user_id: userId, value: value}).returning('id');
 
-          //add inputed options to the poll
-          .then(poll => {
-            options.forEach((option, i) => {
-              insertOptions(poll, option, descriptions[i])
-            })
-          })
-          .catch(err => console.log('error selecting user with input value', err))
-    })
-    .catch(err => console.log('error inputing user', err))
-  )
+      //add each option in array
+      await options.forEach((option, i) => {
+        insertData(newPollId[0], option, descriptions[i]);
+      });
+
+    await knex.destroy();
+  } catch (e) {
+    console.log('error inserting poll into polls table: ', e);
+  }
 }
 
 //inserts options for new poll
-function insertOptions(poll, option, description) {
-  return(
-    knex('options')
-      .insert({
-        poll_id: poll[0].id, value: option, description: description
-      })
-      .catch(err => console.log('error inserting option', err))
-  )
-}
-
-//selects option by target value row from options table
-function selectOptionByValue(value) {
-  return(
-    knex('options')
-      .where({
-        value: value
-      })
-      .returning('*')
-      .catch(err => console.log('error selecting option', err))
-  )
+async function insertOptions(pollId, option, description){
+  try {
+    await knex('options').insert({poll_id: pollId, value: option, description: description});
+  } catch (e) {
+    console.log('error inserting option into options table: ', e);
+  }
 }
 
 //inserts user votes into votes database
-function insertVotes(optionValue, userCookie, pointWeight, selectOption) {
-  return(
-    selectOption(optionValue).then(option => {
-      knex('votes')
-        .insert({
-          option_id: option[0].id,
-          user_cookie: userCookie,
-          point_weight: pointWeight
-        })
-        .catch(err => console.log('error inserting vote', err))
-    })
-    .catch(err => console.log('error selecting option with input value', err))
-  )
+async function insertVotes(optionValue, userCookie, pointWeight) {
+  try {
+    let optionId = await knex.select('id').from('options').where({value: optionValue});
+    await knex('votes').insert({option_id: optionId[0].id, user_cookie: userCookie, point_weight: pointWeight});
+
+    await knex.destroy();
+  }catch (e) {
+    console.log('error inserting vote into votes table: ', e);
+  }
 }
 
 module.exports = {
-  disconnect: disconnect,
+  insertUser: insertUser,
   insertPoll: insertPoll,
   insertOptions: insertOptions,
-  selectOptionByValue: selectOptionByValue,
   insertVotes: insertVotes
 }

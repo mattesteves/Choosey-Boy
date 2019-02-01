@@ -48,6 +48,7 @@ async function weightSum(optionId) {
     console.log('error summing option weight');
   }
 }
+//return poll id
 
 module.exports = {
   getPollValue: getPollValue,
