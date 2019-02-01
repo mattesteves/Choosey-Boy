@@ -13,6 +13,7 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
+const insertQueries = require("./public/scripts/insertQueries.js")
 
 
 // using SendGrid's v3 Node.js Library
@@ -94,8 +95,9 @@ app.post("/new_poll", (req, res) => {
     // const templateVars = { poll: poll, user: email, cookie: cookie };
 
     //create poll, generate poll id
+    let value ="tesT VALUE";
 
-    let id = 1234
+    let id = insertQueries.insertpoll(userEmail,value)
     let urlShare = "http://localhost:8080/poll/"+id;
     let urlAdmin = "http://localhost:8080/results/"+id;
     //send email
