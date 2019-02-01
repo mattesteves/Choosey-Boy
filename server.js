@@ -69,7 +69,7 @@ app.get("/poll/:id", (req, res) => {
   const userID = 1;
   if (userID ){
     // const templateVars = { poll: poll, user: email, cookie: cookie };
-
+    console.log('in get poll/:id request')
     res.render("pollshow", templateVars);
   }else{
     const userID = bcrypt.hashSync(ID(PK), 10);
@@ -92,23 +92,31 @@ app.post("/new_poll", (req, res) => {
 
 
   const userEmail = req.body.email;
-  console.log("User email: ",userEmail)
+
   if (userEmail){
     let templateVars;
     // const templateVars = { poll: poll, user: email, cookie: cookie };
 
-    insertQueries.insertUser(userEmail).then(() => {
-      insertQueries.insertPoll(userEmail, '2222222', ['first option', 'second option'], ['',''], insertQueries.insertOptions)
-    })
-   // create poll, generate poll id
+    insertQueries.insertUser(userEmail)
+      .then(() => {
+        insertQueries
+          .insertPoll(userEmail, 'second poll', ['option1', 'option2'], ['',''], insertQueries.insertOptions)
+          .then((pollId) => {
 
-    let id = 1234
-    let urlShare = "http://localhost:8080/poll/"+id;
-    let urlAdmin = "http://localhost:8080/results/"+id;
-    //send email
-    sendEmail(userEmail,urlShare,urlAdmin);
-    // res.render("/poll/:id", templateVars);
-    // res.redirect('/poll/:id');
+          //create poll, generate poll id
+          let urlShare = "http://localhost:8080/poll/"+pollId[0];
+          let urlAdmin = "http://localhost:8080/results/"+pollId[0];
+
+          //send email
+          sendEmail(userEmail,urlShare,urlAdmin);
+
+          // res.render("pollshow");
+          // res.redirect(urlShare);
+          res.json({url: urlShare})
+        })
+        .catch(err => console.log(err));
+    })
+
   }else{
     res.redirect(302,'/');
   }
@@ -149,7 +157,7 @@ app.listen(PORT, () => {
 function sendEmail(to,pollLink,adminLink){
   console.log(pollLink)
 
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  sgMail.setApiKey('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');
   const msg = {
     to: to,
     from: to,

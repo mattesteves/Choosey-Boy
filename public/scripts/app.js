@@ -9,9 +9,21 @@ $("#form123").click( function(event) {
   if (userEmail.val() === "" || userEmail.val() === null) {
     $(".error").text("Error ! Not a valid input.");
   }else{
-       $.post( "/new_poll",userEmail);
+      $.ajax({
+       method: "POST",
+       url: "/new_poll",
+       data: userEmail,
+     }).then((data) => {
+        window.location.href = data.url
+      console.log(data)
+     })
   }
 
 });
 
 });
+
+// $.post( "/new_poll",userEmail).then((data) => {
+//         console.log(data)
+//         window.location.href = data.redirect;
+//        });
