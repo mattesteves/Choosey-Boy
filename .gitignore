@@ -4,3 +4,4 @@ public/styles
 *.log
 *.sqlite3
 sendgrid.env
+sendgrid.env
