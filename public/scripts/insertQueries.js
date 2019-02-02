@@ -45,9 +45,9 @@ module.exports = function insertQueries(knex) {
     },
 
     //inserts user votes into votes database
-    insertVotes: async function(optionValue, userCookie, pointWeight) {
+    insertVotes: async function(pollId, optionValue, userCookie, pointWeight) {
       try {
-        let optionId = await knex.select('id').from('options').where({value: optionValue});
+        let optionId = await knex.select('id').from('options').where({value: optionValue}).andWhere({poll_id: pollId});
         await knex('votes').insert({option_id: optionId[0].id, user_cookie: userCookie, point_weight: pointWeight});
 
       }catch (e) {

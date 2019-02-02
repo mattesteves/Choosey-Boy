@@ -161,14 +161,17 @@ function givePoints(options, optionId) {
 
 // poll vote page
 app.post("/poll/:id", (req, res) => {
+
+  //check if user has voted
   returnQueries.checkCookie(req.session.user_id, req.params.id).then((user) => {
     if(user[0]) throw "already voted";
 
     let inputOptions = req.body.votes;
     let rankedOptions =  givePoints(inputOptions);
 
+    //add options with points to db if user hasnt voted
     rankedOptions.forEach((option) => {
-      insertQueries.insertVotes(option.value, req.session.user_id, option.pointWeight)
+      insertQueries.insertVotes(req.params.id, option.value, req.session.user_id, option.pointWeight)
     })
   }).catch(err => console.log(err))
 });

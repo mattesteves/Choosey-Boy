@@ -28,7 +28,6 @@ module.exports = function returnQueries(knex) {
     checkCookie: async function(cookie, pollId) {
       try {
         let user = await knex.select('user_cookie').from('votes').innerJoin('options', {'option_id':'options.id'}).where({user_cookie: cookie}).andWhere({poll_id: pollId});
-        console.log(user);
         return user;
       } catch(e) {
         console.log('error checking userid cookie');
