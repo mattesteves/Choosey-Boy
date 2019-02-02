@@ -87,6 +87,16 @@ app.get("/poll/:id", (req, res) => {
   let templateVars = {};
   if (isValidcookie){
 
+
+      let pollTitle = returnQueries
+      .getValue(table, value, id)
+      .then((returnValue) => {
+        console.log("this is returnValue:",returnValue)
+        templateVars.pollName = returnValue;
+        })
+
+      .then(() => {
+
       let optionVars = returnQueries
       .getOptions(id).then((OptionInput) => {
         //console.log(OptionInput)
@@ -97,25 +107,20 @@ app.get("/poll/:id", (req, res) => {
           templateVars.description = description
 
         //poll count goes here
-        //res.render("pollshow", templateVars);
+        res.render("pollshow", templateVars);
 
         }else{
         res.status(403).send('Please input valid option');
         }
-      }).then(() => {
-        let pollTitle = returnQueries
-      .getValue(table, value, id)
-      .then((returnValue) => {
-        console.log("this is returnValue:",returnValue)
-        templateVars.pollName = returnValue;
-        })
-      .then(() => {
-        console.log("this is templateVars",templateVars)
-        res.render("pollshow", templateVars);
       })
+        // console.log("this is templateVars",templateVars)
+        // res.render("pollshow", templateVars);
+      })
+
       .catch(err => console.log(err));
 
-      })
+
+
 
     }else{
       res.redirect(302,'/poll/');
