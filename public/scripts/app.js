@@ -3,6 +3,7 @@ $(document).ready(function eventhandlers(){
 let templateVars={};
 
 let counter= 2;
+$('.error').hide();
 
 $( '.btn.btn-outline-secondary.start.add-option' ).click(function() {
   event.preventDefault;
@@ -41,18 +42,33 @@ $('.btn.btn-outline-secondary.start.subpoll').click(function(){
 
   let emailOutput = $('.form-control.emailNewPoll').val();
   let pollQuestion = $('.form-control.newPollTitle').val();
+  if (pollQuestion === "" || pollQuestion === null) {
+    $(".error_ms").text("Your poll needs a question");
+    $(".error").slideDown();
+    return }
+
   let optionOutput = [];
   let votes = [];
-
+  let error= false;
 $('.form-control.option_val').each(function(){
+    if ($(this).val() ==="" || $(this).val() === null){
+    error= true;
+    return
+    }
     optionOutput.push($(this).val());
   })
-  console.log(pollQuestion);
-  console.log(optionOutput);
-  console.log('This is email', emailOutput)
+  if (error === true){
+    $(".error_ms").text("You can't submit an empty answer!");
+    $(".error").slideDown(); 
+    return   
+  }
+
   if (emailOutput === "" || emailOutput === null) {
-    $(".error").text("Error ! Not a valid input.");
-  }else{
+    $(".error_ms").text("Please submit an email address.");
+    $(".error").slideDown();
+    return
+  }
+
    $.ajax({
       method: "POST",
       url: "/new_poll",
@@ -64,7 +80,7 @@ $('.form-control.option_val').each(function(){
     }).then((data) => {
        window.location.href = data.url
     })
-  }
+  
 
 });
 
