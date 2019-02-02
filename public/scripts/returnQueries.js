@@ -25,7 +25,7 @@ module.exports = function returnQueries(knex) {
       }
     },
 
-    optionWeights: async function(pollId, getOptions, getOptionId, weightSum) {
+    optionWeights: async function(pollId, getOptions, getOptionId, weightSum, getValue) {
       try {
         let totalPoints = 0;
         let optionTotalPoints = {};
@@ -34,11 +34,13 @@ module.exports = function returnQueries(knex) {
 
         for(let option of options) {
             let id = await getOptionId(pollId, option);
+            let description = await getValue('options', 'description', id)
             let pointSum = await weightSum(id);
             totalPoints += pointSum;
             optionTotalPoints[option] = {
               id: id,
-              points: pointSum
+              points: pointSum,
+              description: description
             }
           }
         return optionTotalPoints

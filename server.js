@@ -97,24 +97,22 @@ app.get("/poll/:id", (req, res) => {
 
       .then(() => {
 
-      let optionVars = returnQueries
-      .getOptions(id).then((OptionInput) => {
-        //console.log(OptionInput)
-        if(OptionInput.length > 0){
-          const description = "new world"
-          templateVars.poll =id
-          templateVars.value = OptionInput
-          templateVars.description = description
+        let optionVars = returnQueries
+        .getOptions(id).then((OptionInput) => {
+          //console.log(OptionInput)
+          if(OptionInput.length > 0){
+            const description = "new world"
+            templateVars.poll =id
+            templateVars.value = OptionInput
+            templateVars.description = description
 
-        //poll count goes here
-        res.render("pollshow", templateVars);
+          //poll count goes here
+          res.render("pollshow", templateVars);
 
-        }else{
-        res.status(403).send('Please input valid option');
-        }
-      })
-        // console.log("this is templateVars",templateVars)
-        // res.render("pollshow", templateVars);
+          }else{
+          res.status(403).send('Please input valid option');
+          }
+        })
       })
 
       .catch(err => console.log(err));
@@ -136,8 +134,9 @@ app.get("/poll/:id/results", (req, res) => {
   let totalPoints = 0;
   let templateVars = {};
 
-  returnQueries.optionWeights(pollId, returnQueries.getOptions, returnQueries.getOptionId, returnQueries.weightSum)
+  returnQueries.optionWeights(pollId, returnQueries.getOptions, returnQueries.getOptionId, returnQueries.weightSum, returnQueries.getValue)
   .then(options => {
+    console.log(options);
     for(let option in options) {
       totalPoints += options[option].points;
     }
@@ -172,6 +171,7 @@ app.post("/new_poll", (req, res) => {
   const userEmail = req.body.email;
   const pollValue = req.body.pollValue;
   const options = req.body.options;
+  const descriptions = req.body.options;
 
   if (userEmail){
     let templateVars;
@@ -180,7 +180,7 @@ app.post("/new_poll", (req, res) => {
     insertQueries.insertUser(userEmail)
       .then(() => {
         insertQueries
-          .insertPoll(userEmail, pollValue, options, options, insertQueries.insertOptions)
+          .insertPoll(userEmail, pollValue, options, descriptions, insertQueries.insertOptions)
           .then((pollId) => {
 
           //create poll, generate poll id
