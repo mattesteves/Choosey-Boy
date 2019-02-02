@@ -1,5 +1,5 @@
 $(document).ready(function eventhandlers(){
-  
+
 let templateVars={};
 
 let counter= 2;
@@ -31,21 +31,23 @@ $( '.btn.btn-outline-secondary.start.add-option' ).click(function() {
 $('.option-container').on('click', 'button', function(){
   $(this).closest('div .ind_option').detach();
   $(this).closest('div .ind_option').remove();
+<<<<<<< HEAD
   counter-- ;
   console.log(counter);
   $('.btn.btn-outline-secondary.start.add-option').slideDown();
 
+=======
+  counter--
+>>>>>>> b62589a5d37c23cf2c4cd0cb9a111370cfe0c539
 });
 
 $('.btn.btn-outline-secondary.start.subpoll').click(function(){
-  
+
   let emailOutput = $('.form-control.emailNewPoll').val();
   let pollQuestion = $('.form-control.newPollTitle').val();
   let optionOutput = [];
   let votes = [];
 
-  
-/* *******AJAX POST Request Event handler for email submit********* */
 $('.form-control.option_val').each(function(){
     optionOutput.push($(this).val());
   })
@@ -55,9 +57,19 @@ $('.form-control.option_val').each(function(){
   if (emailOutput === "" || emailOutput === null) {
     $(".error").text("Error ! Not a valid input.");
   }else{
-    $.post( "/new_poll",emailOutput);
+   $.ajax({
+      method: "POST",
+      url: "/new_poll",
+      data: {
+        email: emailOutput,
+        pollValue: pollQuestion,
+        options: optionOutput
+      }
+    }).then((data) => {
+       window.location.href = data.url
+    })
   }
-  
+
 });
 
 
@@ -71,7 +83,7 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-up', function(){
 $(this).closest('div .pollshow_indoption').slideDown('');}
 });
 
-$('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){ 
+$('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
   if ($(this).closest('div .pollshow_indoption').next().length === 0){
     return
   }
@@ -87,6 +99,15 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
     console.log($(this).text())
   });
   console.log(votes)
+
+     $.ajax({
+      method: "POST",
+      url: window.location.href,
+      data: {
+        votes: votes
+      }
+    })
+
   return votes
   });
   
@@ -94,6 +115,9 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
 
 });
 
+<<<<<<< HEAD
 
 
   
+=======
+>>>>>>> b62589a5d37c23cf2c4cd0cb9a111370cfe0c539

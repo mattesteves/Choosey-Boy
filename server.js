@@ -13,6 +13,18 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
+const cookieSession = require('cookie-session');
+
+app.use(cookieSession({
+  secret: "super_secret"
+}));
+
+const insertQueries = require('./public/scripts/insertQueries.js')(knex);
+const returnQueries = require('./public/scripts/returnQueries.js')(knex);
+
+// using SendGrid's v3 Node.js Library
+// https://github.com/sendgrid/sendgrid-nodejs
+const sgMail = require('@sendgrid/mail');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -54,19 +66,66 @@ app.get("/new_poll", (req, res) => {
   res.render("new_poll", templateVars);
 });
 
+//random string generate function used for ID generation
+function generateRandomString() {
+  let text = '';
+  const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (let randomLetterInc = 0; randomLetterInc < 6; randomLetterInc++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
+}
+
 // poll vote page
 app.get("/poll/:id", (req, res) => {
-  // const userID = req.session.userID;
- const templateVars = {};
-  const userID = 1;
-  if (userID ){
-    // const templateVars = { poll: poll, user: email, cookie: cookie };
+  const id = req.params.id;
+  // const isValidcookie = req.session.pollId;
+  const isValidcookie = 1;
+  const table = "polls"
+  const value = "value"
+  let templateVars = {};
+  if (isValidcookie){
 
-    res.render("pollshow", templateVars);
-  }else{
-    const userID = bcrypt.hashSync(ID(PK), 10);
-    req.session.userID = userID;
-  }
+
+      let pollTitle = returnQueries
+      .getValue(table, value, id)
+      .then((returnValue) => {
+        console.log("this is returnValue:",returnValue)
+        templateVars.pollName = returnValue;
+        })
+
+      .then(() => {
+
+      let optionVars = returnQueries
+      .getOptions(id).then((OptionInput) => {
+        //console.log(OptionInput)
+        if(OptionInput.length > 0){
+          const description = "new world"
+          templateVars.poll =id
+          templateVars.value = OptionInput
+          templateVars.description = description
+
+        //poll count goes here
+        res.render("pollshow", templateVars);
+
+        }else{
+        res.status(403).send('Please input valid option');
+        }
+      })
+        // console.log("this is templateVars",templateVars)
+        // res.render("pollshow", templateVars);
+      })
+
+      .catch(err => console.log(err));
+
+
+
+
+    }else{
+      res.redirect(302,'/poll/');
+    }
+
 });
 
 
@@ -88,60 +147,90 @@ res.render("poll_links" )
 // new poll page
 app.post("/new_poll", (req, res) => {
 
+  console.log(req.body.email)
   const userEmail = req.body.email;
-  console.log("User email: ",userEmail)
+  const pollValue = req.body.pollValue;
+  const options = req.body.options;
+
   if (userEmail){
     let templateVars;
     // const templateVars = { poll: poll, user: email, cookie: cookie };
- 
-    insertQueries.insertUser(userEmail).then(() => {
-      insertQueries.insertPoll(userEmail, 'first poll', ['first option', 'second option'], ['',''], insertQueries.insertOptions).then((pollId) => {
-        console.log(pollId);
-        //create poll, generate poll id
-        let urlShare = "http://localhost:8080/poll/"+pollId[0];
-        let urlAdmin = "http://localhost:8080/results/"+pollId[0];
- 
-        //send email
-        sendEmail(userEmail,urlShare,urlAdmin);
-        // res.render("/poll/:id", templateVars);
-        // res.redirect('/poll/:id');
-      })
-      .catch(err => console.log(err));
+
+    insertQueries.insertUser(userEmail)
+      .then(() => {
+        insertQueries
+          .insertPoll(userEmail, pollValue, options, options, insertQueries.insertOptions)
+          .then((pollId) => {
+
+          //create poll, generate poll id
+          let urlShare = "http://localhost:8080/poll/"+pollId[0];
+          let urlAdmin = "http://localhost:8080/results/"+pollId[0];
+
+          //send email
+          sendEmail(userEmail,urlShare,urlAdmin);
+
+          res.json({url: urlShare})
+        })
+        .catch(err => console.log(err));
     })
     .catch(err => console.log(err));
   }else{
     res.redirect(302,'/');
   }
- 
+
  });
 
+//give options points based on vote
+function givePoints(options, optionId) {
+  let optionsAndRank = []
+  options.forEach((option, rank) => {
+    let pointWeight = options.length - (rank + 1);
+    optionsAndRank.push({
+      value: option,
+      pointWeight: pointWeight
+    })
+  })
+  return optionsAndRank;
+}
 
 // poll vote page
 app.post("/poll/:id", (req, res) => {
-  const userID = req.session.userID;
-  const isValidcookie = bcrypt.compareSync(userID);
-  if (isValidcookie){
-    const templateVars = { poll: poll, user: email, cookie: cookie };
-  //poll count goes here
-  res.render("pollshow", templateVars);
-  }else if(isValidcookie /* if already voted */){
 
-    const err = "You are not allowed here!";
-    const templateVars = { poll: poll, cookie: cookie, error: err };
-    res.render("pollshow", templateVars);
-  }else{
-    res.redirect(302,"/");
-  }
+  //check if user has voted
+  returnQueries.checkCookie(req.session.user_id, req.params.id).then((user) => {
+    if(user[0]) throw "already voted";
+
+    let inputOptions = req.body.votes;
+    let rankedOptions =  givePoints(inputOptions);
+
+    //add options with points to db if user hasnt voted
+    rankedOptions.forEach((option) => {
+      insertQueries.insertVotes(req.params.id, option.value, req.session.user_id, option.pointWeight)
+    })
+  }).catch(err => console.log(err))
 });
-
-
-
 
 
 app.listen(PORT, () => {
   console.log("Choosey Boy listening on port " + PORT);
 
 });
+
+
+
+function sendEmail(to,pollLink,adminLink){
+  console.log(pollLink)
+
+  sgMail.setApiKey('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');
+  const msg = {
+    to: to,
+    from: to,
+    subject: 'ChooseyBoy Poll links',
+    text: 'Please find your poll share and Admin links below',
+    html:"Link to the poll: "+ pollLink + " <br>" + "Admin link : "+ adminLink,
+  };
+  sgMail.send(msg);
+}
 
 /*
 route paths
