@@ -89,9 +89,23 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
   console.log(votes)
   return votes
   });
-
+  
+  $('#copy_button').click( function myFunction() {
+    /* Get the text field */
+    var copyText = document.getElementById("BLOOPADOO").innerText;
+  
+    let test2 = copyText.split('&&&');
+    test2[1].select();
+   
+  
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+  
+    /* Alert the copied text */
+    alert("Copied the text: " + copyText.value);
+  }
+  )
 });
-
 
   
 

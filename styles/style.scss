@@ -127,6 +127,7 @@ $bg-purp: #625d8e;
 }
 
 .pollshow_indoption{
+    display:flex;
 
     background: white;
     color: $bg-purp;
@@ -138,22 +139,18 @@ $bg-purp: #625d8e;
     width:90%;
     max-width: 300px;
     margin: 1.5% auto;
-    position: sticky;
-    
-    .fas{
-    font-size:100%;
-    }
-    .fas.fa-arrow-circle-up{
-        padding:1%; 
-        padding-top:0;
-    }
-    .fas.fa-arrow-circle-down{
-        padding: 1%;
-        padding-bottom:0;
-    }
+        .arrow{
+
+        }
+
 }
 
 form.copy-links{
     width:80%;
     margin: auto;
+}
+
+.option_text{
+
+
 }
