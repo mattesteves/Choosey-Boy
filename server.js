@@ -140,30 +140,33 @@ app.post("/new_poll", (req, res) => {
 
  });
 
+//give options points based on vote
+function givePoints(options, optionId) {
+  let optionsAndRank = []
+  options.forEach((option, rank) => {
+    let pointWeight = options.length - (rank + 1);
+    optionsAndRank.push({
+      value: option,
+      pointWeight: pointWeight
+    })
+  })
+  return optionsAndRank;
+}
 
 // poll vote page
 app.post("/poll/:id", (req, res) => {
 
+  returnQueries.checkCookie(req.session.user_id).then((user) => {
+    if(user) throw "already voted";
 
+    let inputOptions = ['Airplane', 'The Fellowship of the Ring'];
+    let rankedOptions =  givePoints(inputOptions);
 
-
-  const userID = req.session.userID;
-  const isValidcookie = bcrypt.compareSync(userID);
-  if (isValidcookie){
-    const templateVars = { poll: poll, user: email, cookie: cookie };
-  //poll count goes here
-  res.render("pollshow", templateVars);
-  }else if(isValidcookie /* if already voted */){
-
-    const err = "You are not allowed here!";
-    const templateVars = { poll: poll, cookie: cookie, error: err };
-    res.render("pollshow", templateVars);
-  }else{
-    res.redirect(302,"/");
-  }
+    rankedOptions.forEach((option) => {
+      insertQueries.insertVotes(option.value, req.session.user_id, option.pointWeight)
+    })
+  })
 });
-
-
 
 
 
