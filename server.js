@@ -95,10 +95,31 @@ app.get("/poll/:id", (req, res) => {
 });
 
 
+
 // poll results page
 app.get("/poll/:id/results", (req, res) => {
-  const templateVars = { poll: poll, user: email, cookie: cookie };
-  res.render("results", templateVars);
+  const pollId = req.params.id;
+  let totalPoints = 0;
+  let templateVars = {};
+
+  returnQueries.optionWeights(pollId, returnQueries.getOptions, returnQueries.getOptionId, returnQueries.weightSum)
+  .then(options => {
+    for(let option in options) {
+      totalPoints += options[option].points;
+    }
+    templateVars.totalPoints = totalPoints;
+    for(let option in options){
+      templateVars[option] = {
+        value: option,
+        proportion: options[option].points / totalPoints
+      }
+    }
+    returnQueries.getValue('polls', 'value', pollId)
+    .then((pollName) => {
+      templateVars.pollValue = pollName;
+      res.render("results", templateVars);
+    })
+  })
 });
 
 
@@ -197,12 +218,3 @@ function sendEmail(to,pollLink,adminLink){
   };
   sgMail.send(msg);
 }
-
-/*
-route paths
-  GET - /new_poll
-  POST - /new_poll
-  GET - /poll/:id
-  POST - /poll/:id
-  GET - /poll/:id/results
-*/

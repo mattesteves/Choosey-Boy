@@ -25,6 +25,28 @@ module.exports = function returnQueries(knex) {
       }
     },
 
+    optionWeights: async function(pollId, getOptions, getOptionId, weightSum) {
+      try {
+        let totalPoints = 0;
+        let optionTotalPoints = {};
+
+        let options = await getOptions(pollId);
+
+        for(let option of options) {
+            let id = await getOptionId(pollId, option);
+            let pointSum = await weightSum(id);
+            totalPoints += pointSum;
+            optionTotalPoints[option] = {
+              id: id,
+              points: pointSum
+            }
+          }
+        return optionTotalPoints
+      } catch(e) {
+        console.log('error calculating percentage');
+      }
+    },
+
     checkCookie: async function(cookie, pollId) {
       try {
         let user = await knex.select('user_cookie').from('votes').innerJoin('options', {'option_id':'options.id'}).where({user_cookie: cookie}).andWhere({poll_id: pollId});
