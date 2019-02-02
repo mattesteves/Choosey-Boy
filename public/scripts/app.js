@@ -87,6 +87,15 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
     console.log($(this).text())
   });
   console.log(votes)
+
+     $.ajax({
+      method: "POST",
+      url: window.location.href,
+      data: {
+        votes: votes
+      }
+    })
+
   return votes
   });
 

@@ -161,19 +161,17 @@ function givePoints(options, optionId) {
 
 // poll vote page
 app.post("/poll/:id", (req, res) => {
+  returnQueries.checkCookie(req.session.user_id, req.params.id).then((user) => {
+    if(user[0]) throw "already voted";
 
-  returnQueries.checkCookie(req.session.user_id).then((user) => {
-    if(user) throw "already voted";
-
-    let inputOptions = ['Airplane', 'The Fellowship of the Ring'];
+    let inputOptions = req.body.votes;
     let rankedOptions =  givePoints(inputOptions);
 
     rankedOptions.forEach((option) => {
       insertQueries.insertVotes(option.value, req.session.user_id, option.pointWeight)
     })
-  })
+  }).catch(err => console.log(err))
 });
-
 
 
 app.listen(PORT, () => {
