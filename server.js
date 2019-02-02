@@ -202,7 +202,7 @@ app.post("/new_poll", (req, res) => {
 
           //create poll, generate poll id
           let urlShare = "http://localhost:8080/poll/"+pollId[0];
-          let urlAdmin = "http://localhost:8080/poll/results/"+pollId[0];
+          let urlAdmin = "http://localhost:8080/poll/" +pollId[0]+"/results/";
 
           //send email
           sendEmail(userEmail,urlShare,urlAdmin);
@@ -233,6 +233,7 @@ function givePoints(options, optionId) {
 
 // poll vote page
 app.post("/poll/:id", (req, res) => {
+  const id = req.params.id;
 
   //check if user has voted
   returnQueries.checkCookie(req.session.user_id, req.params.id).then((user) => {
@@ -245,6 +246,20 @@ app.post("/poll/:id", (req, res) => {
     rankedOptions.forEach((option) => {
       insertQueries.insertVotes(req.params.id, option.value, req.session.user_id, option.pointWeight)
     })
+
+    //send email
+    .then(() => {
+
+          //create poll, generate poll id
+          let urlShare = "http://localhost:8080/poll/"+id;
+          let urlAdmin = "http://localhost:8080/poll/"+id+"/results/";
+
+          //send email
+          sendEmail(userEmail,urlShare,urlAdmin);
+        })
+
+
+
   }).catch(err => console.log(err))
 });
 
