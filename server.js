@@ -86,8 +86,6 @@ app.get("/poll/:id", (req, res) => {
   const value = "value"
   let templateVars = {};
   if (isValidcookie){
-
-
       let pollTitle = returnQueries
       .getValue(table, value, id)
       .then((returnValue) => {
@@ -120,6 +118,52 @@ app.get("/poll/:id", (req, res) => {
       .catch(err => console.log(err));
 
 
+    }else{
+      res.redirect(302,'/poll/');
+    }
+
+});
+
+
+// poll results page
+app.get("/poll/results/:id", (req, res) => {
+
+  const id = req.params.id;
+  // const isValidcookie = req.session.pollId;
+  const isValidcookie = 1;
+  const table = "polls"
+  const value = "value"
+  let templateVars = {};
+  if (isValidcookie){
+      let pollTitle = returnQueries
+      .getValue(table, value, id)
+      .then((returnValue) => {
+        console.log("this is returnValue:",returnValue)
+        templateVars.pollName = returnValue;
+        })
+
+      .then(() => {
+
+      let optionVars = returnQueries
+      .getOptions(id).then((OptionInput) => {
+        //console.log(OptionInput)
+        if(OptionInput.length > 0){
+          const description = "new world"
+          templateVars.poll =id
+          templateVars.value = OptionInput
+          templateVars.description = description
+
+        //poll count goes here
+        res.render("results", templateVars);
+
+        }else{
+        res.status(403).send('Please input valid option');
+        }
+      })
+
+      })
+
+      .catch(err => console.log(err));
 
 
     }else{
@@ -129,18 +173,12 @@ app.get("/poll/:id", (req, res) => {
 });
 
 
-// poll results page
-app.get("/poll/:id/results", (req, res) => {
-  const templateVars = { poll: poll, user: email, cookie: cookie };
-  res.render("results", templateVars);
-});
-
-
 //temp test results page without vars
 
 app.get("/test", (req,res)=>{
 res.render("results" )
 });
+
 
 /* ******** POST REQUESTS ******* */
 
@@ -164,7 +202,7 @@ app.post("/new_poll", (req, res) => {
 
           //create poll, generate poll id
           let urlShare = "http://localhost:8080/poll/"+pollId[0];
-          let urlAdmin = "http://localhost:8080/results/"+pollId[0];
+          let urlAdmin = "http://localhost:8080/poll/results/"+pollId[0];
 
           //send email
           sendEmail(userEmail,urlShare,urlAdmin);
