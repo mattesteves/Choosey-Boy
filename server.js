@@ -67,11 +67,13 @@ app.get("/poll/:id", (req, res) => {
   const id = req.params.id;
   // const isValidcookie = req.session.pollId;
   const isValidcookie = 1;
+  const table = "polls"
+  let returnValue;
   if (isValidcookie){
 
       let optionVars = returnQueries
       .getOptions(id).then((OptionInput) => {
-        console.log(OptionInput)
+        //console.log(OptionInput)
         if(OptionInput.length > 0){
           const description = "new world"
           const templateVars = { poll:id , value:OptionInput , description : description };
@@ -83,14 +85,11 @@ app.get("/poll/:id", (req, res) => {
         }else{
         res.status(403).send('Please input valid option');
         }
-      });
-
-      console.log(optionVars)
+      })
 
     }else{
       res.redirect(302,'/poll/');
     }
-
 });
 
 

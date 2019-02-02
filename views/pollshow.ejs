@@ -1,45 +1,42 @@
 
 <% include partials/_header.ejs %>
 
+<h2>Poll ID: <%= poll %></h2>
+<% value.forEach((option) => { %>
+
+
 <div id="favourite">
     <i class="far fa-smile"></i>&nbsp;MOST&nbsp;FAVOURITEST&nbsp;<i class="far fa-smile"></i>
 </div>
 <br><!-- temporary-->
+
+
+
+
 
 <div id="pollshow_options">
     <div class="pollshow_indoption">
 
     <i class="fas fa-arrow-circle-up"></i>
        <div  class="option_text">
-           Option 1
+           <p><%=  option  %></p>
        </div>
     <i class="fas fa-arrow-circle-down"></i>
 
     </div>
     <!--testing options-->
-    <div class="pollshow_indoption">
-        <i class="fas fa-arrow-circle-up"></i>
-            <div  class="option_text">
-                Option 2
-            </div>
-        <i class="fas fa-arrow-circle-down test"></i>
-    </div>
 
     <div class="pollshow_indoption">
             <i class="fas fa-arrow-circle-up"></i>
                 <div  class="option_text">
-                    Option 3
+            <p><%=  option  %></p>
                 </div>
             <i class="fas fa-arrow-circle-down test"></i>
     </div>
 
 
-
-
-
-
 </div>
-
+<% })%>
 <br><!-- temporary-->
 
 
