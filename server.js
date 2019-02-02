@@ -79,19 +79,53 @@ function generateRandomString() {
 
 // poll vote page
 app.get("/poll/:id", (req, res) => {
-  if(!req.session.user_id){
-    req.session.user_id = generateRandomString();
-  }
- const templateVars = {};
-  const userID = 1;
-  if (userID ){
-    // const templateVars = { poll: poll, user: email, cookie: cookie };
-    console.log('in get poll/:id request')
-    res.render("pollshow", templateVars);
-  }else{
-    const userID = bcrypt.hashSync(ID(PK), 10);
-    req.session.userID = userID;
-  }
+  const id = req.params.id;
+  // const isValidcookie = req.session.pollId;
+  const isValidcookie = 1;
+  const table = "polls"
+  const value = "value"
+  let templateVars = {};
+  if (isValidcookie){
+
+
+      let pollTitle = returnQueries
+      .getValue(table, value, id)
+      .then((returnValue) => {
+        console.log("this is returnValue:",returnValue)
+        templateVars.pollName = returnValue;
+        })
+
+      .then(() => {
+
+      let optionVars = returnQueries
+      .getOptions(id).then((OptionInput) => {
+        //console.log(OptionInput)
+        if(OptionInput.length > 0){
+          const description = "new world"
+          templateVars.poll =id
+          templateVars.value = OptionInput
+          templateVars.description = description
+
+        //poll count goes here
+        res.render("pollshow", templateVars);
+
+        }else{
+        res.status(403).send('Please input valid option');
+        }
+      })
+        // console.log("this is templateVars",templateVars)
+        // res.render("pollshow", templateVars);
+      })
+
+      .catch(err => console.log(err));
+
+
+
+
+    }else{
+      res.redirect(302,'/poll/');
+    }
+
 });
 
 
@@ -126,7 +160,7 @@ app.get("/poll/:id/results", (req, res) => {
 //temp test results page without vars
 
 app.get("/test", (req,res)=>{
-res.render("results" )
+res.render("poll_links" )
 });
 
 /* ******** POST REQUESTS ******* */

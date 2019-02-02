@@ -1,9 +1,25 @@
 <% include partials/_header.ejs %>
 
+<div class="pullquote">
+Your question here!
+</div>
+
+<!--
+    Pie chart courtesty of the fine folks at Chart.JS,
+https://www.chartjs.org
+
+-->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
-<!-- <canvas id="myChart"></canvas> -->
-<!-- <script>
+
+<canvas id="myChart"></canvas>
+
+<script>
+Chart.defaults.global.legend.position = 'bottom';
+Chart.defaults.global.legend.labels.fontColor= 'white';
+Chart.defaults.global.legend.labels.fontSize = 20;
+
 
 let data = {
     datasets: [{
@@ -29,10 +45,14 @@ var myPieChart = new Chart(ctx,{
     borderColor: 'black',
 
     options: {
-        borderColor:'#000000',
     legend: {
-        display: false,
-        }
+        display: true,
+    },
+    labels: {
+        color: 'black',
+        position: 'bottom'
+    }
+
     }
 });
 </script> -->

@@ -100,6 +100,7 @@ $bg-purp: #625d8e;
 }
 
 #favourite{
+    font-family:'Just Another Hand', cursive;
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: initial;
@@ -109,10 +110,11 @@ $bg-purp: #625d8e;
     background-color:rgb(255, 0, 221);
     padding: 1rem;  
     border-radius: 15px;  
-    font-size: 100%;
+    font-size: 150%;
 }
 
 #least_favourite{
+    font-family:'Just Another Hand', cursive;
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: initial;
@@ -122,11 +124,13 @@ $bg-purp: #625d8e;
     background-color:rgb(9, 105, 0);
     padding: 1rem;  
     border-radius: 15px;  
-    font-size: 100%;
+    font-size: 150%;
+
 
 }
 
 .pollshow_indoption{
+    display:flex;
 
     background: white;
     color: $bg-purp;
@@ -138,18 +142,19 @@ $bg-purp: #625d8e;
     width:90%;
     max-width: 300px;
     margin: 1.5% auto;
-    position: sticky;
-    
-    .fas{
-    font-size:100%;
-    }
-    .fas.fa-arrow-circle-up{
-        padding:1%; 
-        padding-top:0;
-    }
-    .fas.fa-arrow-circle-down{
-        padding: 1%;
-        padding-bottom:0;
-    }
+        .arrow{
+            font-size:150%;
+        }
+
 }
+.links_label{
+    font-size:1.5rem;
+
+    margin: 5% 0 5% 0;
+}
+form.copy-links{
+    width:80%;
+    margin: auto;
+}
+
 

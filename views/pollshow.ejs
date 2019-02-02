@@ -1,50 +1,43 @@
 <% include partials/_header.ejs %>
+<h4>Poll ID: <%= poll %></h4>
+<h2>Poll Name: <%= pollName %></h2>
 
 <div id="favourite">
-    <i class="far fa-smile"></i>&nbsp;MOST&nbsp;FAVOURITEST&nbsp;<i class="far fa-smile"></i>
+    <i class="far fa-smile"></i>&nbsp;&nbsp;&nbsp;MOST&nbsp;FAVOURITEST&nbsp;&nbsp;&nbsp;<i class="far fa-smile"></i>
 </div>
 <br><!-- temporary-->
+    <% value.forEach((option) => { %>
 
     <div id="pollshow_options">
-        <div class="pollshow_indoption">
+            <div class="container-fluid pollshow_indoption">
+                    <div class="row align-items-center">
+                        <div class="col-2 arrow">          
+                            <i class="fas fa-arrow-circle-up"></i>
+                        </div>
+                        <div class="col-8">     
+                            <div  class="option_text"><%=  option  %></div>
+                        </div>
+                        <div class="col-2 arrow">
+                            <i class="fas fa-arrow-circle-down test"></i>
+                        </div>
+                    </div>
+                </div>
 
-    <i class="fas fa-arrow-circle-up"></i>
-
-       <div  class="option_text">Option 1</div>
-
-    <i class="fas fa-arrow-circle-down"></i>
-
+ <% })%>
+<br>
     </div>
-    <!--testing options-->
-    <div class="pollshow_indoption">
-        <i class="fas fa-arrow-circle-up"></i>
-            <div  class="option_text">Option 2</div>
-        <i class="fas fa-arrow-circle-down test"></i>
-    </div>
-
-    <div class="pollshow_indoption">
-            <i class="fas fa-arrow-circle-up"></i>
-                <div  class="option_text">Option 3</div>
-            <i class="fas fa-arrow-circle-down test"></i>
-    </div>
-
-
-
-
-
-
-</div>
-
-<br><!-- temporary-->
 
 
 <div id="least_favourite">
-    <i class="fas fa-angry"></i> LEAST FAVOURITEST <i class="fas fa-angry"></i>
+    <i class="fas fa-angry"></i>&nbsp;&nbsp;&nbsp;LEAST&nbsp;FAVOURITEST&nbsp;&nbsp;&nbsp;<i class="fas fa-angry"></i>
 </div>
 
-<div id="pollshow_submit">
-
+<br>
+<button type="button" class="btn btn-outline-secondary start">
     <i class="fas fa-check-circle"> </i>Done!
+</button>
 
 </div>
-    <% include partials/_footer.ejs %>
+
+
+<% include partials/_footer.ejs %>

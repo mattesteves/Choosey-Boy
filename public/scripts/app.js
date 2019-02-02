@@ -6,7 +6,8 @@ let counter= 2;
 
 $( '.btn.btn-outline-secondary.start.add-option' ).click(function() {
   event.preventDefault;
-  counter = counter+1;
+    counter = counter+1;
+    console.log(counter);
   $('.option-container').append(
 
     `
@@ -21,12 +22,19 @@ $( '.btn.btn-outline-secondary.start.add-option' ).click(function() {
 
 `
   );
+  if (counter === 10){
+    console.log("no");
+    $('.btn.btn-outline-secondary.start.add-option').slideUp()
+  }
 });
 
 $('.option-container').on('click', 'button', function(){
   $(this).closest('div .ind_option').detach();
   $(this).closest('div .ind_option').remove();
-  counter--
+  counter-- ;
+  console.log(counter);
+  $('.btn.btn-outline-secondary.start.add-option').slideDown();
+
 });
 
 $('.btn.btn-outline-secondary.start.subpoll').click(function(){
@@ -98,6 +106,11 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
 
   return votes
   });
+  
+
 
 });
 
+
+
+  
