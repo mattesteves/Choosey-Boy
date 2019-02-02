@@ -31,14 +31,10 @@ $( '.btn.btn-outline-secondary.start.add-option' ).click(function() {
 $('.option-container').on('click', 'button', function(){
   $(this).closest('div .ind_option').detach();
   $(this).closest('div .ind_option').remove();
-<<<<<<< HEAD
   counter-- ;
   console.log(counter);
   $('.btn.btn-outline-secondary.start.add-option').slideDown();
 
-=======
-  counter--
->>>>>>> b62589a5d37c23cf2c4cd0cb9a111370cfe0c539
 });
 
 $('.btn.btn-outline-secondary.start.subpoll').click(function(){
@@ -115,9 +111,6 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
 
 });
 
-<<<<<<< HEAD
 
 
   
-=======
->>>>>>> b62589a5d37c23cf2c4cd0cb9a111370cfe0c539
