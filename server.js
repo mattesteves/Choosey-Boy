@@ -68,7 +68,8 @@ app.get("/poll/:id", (req, res) => {
   // const isValidcookie = req.session.pollId;
   const isValidcookie = 1;
   const table = "polls"
-  let returnValue;
+  const value = "value"
+  let templateVars = {};
   if (isValidcookie){
 
       let optionVars = returnQueries
@@ -76,15 +77,29 @@ app.get("/poll/:id", (req, res) => {
         //console.log(OptionInput)
         if(OptionInput.length > 0){
           const description = "new world"
-          const templateVars = { poll:id , value:OptionInput , description : description };
-
+          templateVars.poll =id
+          templateVars.value = OptionInput
+          templateVars.description = description
 
         //poll count goes here
-        res.render("pollshow", templateVars);
+        //res.render("pollshow", templateVars);
 
         }else{
         res.status(403).send('Please input valid option');
         }
+      }).then(() => {
+        let pollTitle = returnQueries
+      .getValue(table, value, id)
+      .then((returnValue) => {
+        console.log("this is returnValue:",returnValue)
+        templateVars.pollName = returnValue;
+        })
+      .then(() => {
+        console.log("this is templateVars",templateVars)
+        res.render("pollshow", templateVars);
+      })
+      .catch(err => console.log(err));
+
       })
 
     }else{
