@@ -27,10 +27,10 @@ $( '.btn.btn-outline-secondary.start.add-option' ).click(function() {
 
 `
   );
+  $('option.contianer').last('.form-control').focus();
   if (counter === 10){
-    console.log("no");
-    $('.btn.btn-outline-secondary.start.add-option').slideUp()
-  }
+    $('.btn.btn-outline-secondary.start.add-option').slideUp();
+    }
 });
 
 //Removing an option on new_poll.ejs
