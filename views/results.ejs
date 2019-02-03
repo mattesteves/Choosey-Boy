@@ -33,12 +33,6 @@ https://www.chartjs.org
 
   <div>
     <% options.forEach((option) => { %>
-      <p class="optionDescription"> <%= option.description %> </p>
-    <% }) %>
-  </div>
-
-  <div>
-    <% options.forEach((option) => { %>
       <p class="optionProportion"> <%= option.proportion %> </p>
     <% }) %>
   </div>
@@ -64,15 +58,13 @@ $('.optionPoints').each(function() {
   optionPoints.push($(this).text());
 })
 
-$('.hide.optionProportion').each(function() {
+$('.optionProportion').each(function() {
   optionProportions.push($(this).text());
 })
 
-$('.hide.optionDescription').each(function() {
-  optionDescriptions.push($(this).text());
-})
-
-
+for(let i = 0; i < optionValues.length; i++) {
+  optionValues[i] += ` (${optionProportions[i] * 100}%)`;
+}
 
 let data = {
     datasets: [{
