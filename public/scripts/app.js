@@ -19,6 +19,7 @@ $( '.btn.btn-outline-secondary.start.add-option' ).click(function() {
               <button class="btn btn-success" type="button"><i class="fas fa-backspace">    </i></button>
             </div>
     </div>
+    <input class="form-control form-control-lg" type="text" placeholder="Description">
 </div>
 
 `
@@ -30,6 +31,7 @@ $( '.btn.btn-outline-secondary.start.add-option' ).click(function() {
 });
 
 $('.option-container').on('click', 'button', function(){
+  $(this).closest('div .ind_option').slideUp('slow');
   $(this).closest('div .ind_option').detach();
   $(this).closest('div .ind_option').remove();
   counter-- ;
@@ -54,6 +56,7 @@ $('.btn.btn-outline-secondary.start.subpoll').click(function(){
 
   let optionOutput = [];
   let votes = [];
+  let descriptionOut= [];
   let error= false;
 $('.form-control.option_val').each(function(){
     if ($(this).val() ==="" || $(this).val() === null){
@@ -61,7 +64,10 @@ $('.form-control.option_val').each(function(){
     return
     }
     optionOutput.push($(this).val());
+
+    descriptionOut.push($(this).parent().next('input').val());
   })
+  console.log(descriptionOut);
   if (error === true){
     $(".error_ms").text("You can't submit an empty answer!");
     $(".error").fadeIn();
@@ -82,7 +88,8 @@ $('.form-control.option_val').each(function(){
       data: {
         email: emailOutput,
         pollValue: pollQuestion,
-        options: optionOutput
+        options: optionOutput,
+        descriptions: descriptionOut
       }
     }).then((data) => {
        window.location.href = data.url
