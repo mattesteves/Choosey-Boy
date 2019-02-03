@@ -215,9 +215,12 @@ app.post("/poll", (req, res) => {
         // console.log(templateVars)
 
         }
+      }).then(() => {
+        res.json({pollRedirect: "http://localhost:8080/poll/"});
+        res.render("poll", templateVars);
+
       })
-      res.json({pollRedirect: "http://localhost:8080/poll/"});
-  res.render("poll", templateVars);
+
 });
 
 // new poll page
