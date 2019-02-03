@@ -49,24 +49,24 @@ $bg-purp: #625d8e;
 
     font-size: 1.5rem;
     margin-bottom: 15%;
-    
+
 }
 
 .col-sm-6.maincon{
     color:white;
     text-align:center;
 
-    
+
     button.btn.btn-outline-secondary.start{
         font-size: 1rem;
-    
+
         color: $bg-purp;
         background-color: white;
         margin-bottom:5%;
 
     }
     button.btn.btn-outline-secondary.start:hover{
-    
+
         color: white;
         background-color: $bg-purp;
         border-color: white;
@@ -75,15 +75,15 @@ $bg-purp: #625d8e;
     button.btn.btn-success.submit_button{
         color: white;
         background-color:$bg-purp;
-        border-color: white;    
-    
+        border-color: white;
+
     }
 }
 
 .ind_option{
     width:60%;
-    margin: auto;   
-    padding-bottom:2%;  
+    margin: auto;
+    padding-bottom:2%;
 }
 .ind_option button{
     color: white;
@@ -93,7 +93,7 @@ $bg-purp: #625d8e;
 }
 .ind_option button:hover{
     background-color: rgba(255, 0, 0, 0.527);
-    border-color:rgba(255, 0, 0, 0.527); 
+    border-color:rgba(255, 0, 0, 0.527);
     border:none;
 }
 .form-control.form-control-lg{
@@ -102,7 +102,7 @@ $bg-purp: #625d8e;
 
 #choose_title{
     padding-bottom:2rem;
-    font-size:1rem; 
+    font-size:1rem;
   }
 
 .input-group.emailNewPoll{
@@ -119,29 +119,29 @@ $bg-purp: #625d8e;
 
 #favourite{
     font-family:'Just Another Hand', cursive;
-    white-space: nowrap; 
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: initial;
     width:90%;
     max-width:300px;
     margin:auto;
     background-color:rgb(255, 0, 221);
-    padding: 1rem;  
-    border-radius: 15px;  
+    padding: 1rem;
+    border-radius: 15px;
     font-size: 150%;
 }
 
 #least_favourite{
     font-family:'Just Another Hand', cursive;
-    white-space: nowrap; 
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: initial;
     width:90%;
     max-width:300px;
     margin:auto;
     background-color:rgb(9, 105, 0);
-    padding: 1rem;  
-    border-radius: 15px;  
+    padding: 1rem;
+    border-radius: 15px;
     font-size: 150%;
 
 
@@ -190,4 +190,8 @@ form.copy-links{
     padding:2%;
     z-index: 1000;
 
+}
+
+.hide {
+  display: none;
 }
