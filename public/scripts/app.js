@@ -159,6 +159,8 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
       data: {
         votes: votes
       }
+    }).then((data) => {
+       window.location.href = data.url
     })
 
   return votes

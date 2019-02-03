@@ -86,7 +86,12 @@ app.get("/poll/:id", (req, res) => {
 
   const id = req.params.id;
 
-  let templateVars = {};
+  //check if user has voted
+  returnQueries.checkCookie(req.session.user_id, req.params.id).then((user) => {
+    if(user[0]) res.redirect("http://localhost:8080/poll/"+id+"/results/")
+  })
+  .then(() => {
+    let templateVars = {};
 
     let pollTitle = returnQueries
     .getValue('polls', 'value', id)
@@ -120,8 +125,9 @@ app.get("/poll/:id", (req, res) => {
         }
       })
     })
-
     .catch(err => console.log(err));
+  })
+
 });
 
 // poll results page
@@ -237,6 +243,7 @@ app.post("/poll/:id", (req, res) => {
           //send email
           returnQueries.getEmailFromPollId(id).then((email) => {
             sendEmail(email, urlShare, urlAdmin);
+            res.json({url: urlAdmin})
           })
   }).catch(err => console.log(err))
 });
