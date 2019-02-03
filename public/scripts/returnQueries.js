@@ -25,6 +25,30 @@ module.exports = function returnQueries(knex) {
       }
     },
 
+    optionWeights: async function(pollId, getOptions, getOptionId, weightSum, getValue) {
+      try {
+        let totalPoints = 0;
+        let optionTotalPoints = {};
+
+        let options = await getOptions(pollId);
+
+        for(let option of options) {
+            let id = await getOptionId(pollId, option);
+            let description = await getValue('options', 'description', id)
+            let pointSum = await weightSum(id);
+            totalPoints += pointSum;
+            optionTotalPoints[option] = {
+              id: id,
+              points: pointSum,
+              description: description
+            }
+          }
+        return optionTotalPoints
+      } catch(e) {
+        console.log('error calculating percentage');
+      }
+    },
+
     checkCookie: async function(cookie, pollId) {
       try {
         let user = await knex.select('user_cookie').from('votes').innerJoin('options', {'option_id':'options.id'}).where({user_cookie: cookie}).andWhere({poll_id: pollId});
@@ -56,6 +80,24 @@ module.exports = function returnQueries(knex) {
         return optionValues;
       } catch(e) {
         console.log('error getting options for id');
+      }
+    },
+
+    getEmailFromPollId: async function(pollId) {
+      try{
+        let user = await knex.select('email').from('users').innerJoin('polls', {'users.id':'user_id'}).where({'polls.id': pollId});
+        return user[0].email;
+      } catch(e) {
+        console.log('error getting user email givin poll id');
+      }
+    },
+
+    getPollIdFromEmail: async function(email) {
+      try{
+        let poll = await knex.select('polls.id').from('users').innerJoin('polls', {'users.id':'user_id'}).where({'users.email': email});
+        return poll;
+      } catch(e) {
+        console.log('error getting poll id givin email');
       }
     }
 

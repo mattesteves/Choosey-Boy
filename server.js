@@ -22,6 +22,7 @@ app.use(cookieSession({
 const insertQueries = require('./public/scripts/insertQueries.js')(knex);
 const returnQueries = require('./public/scripts/returnQueries.js')(knex);
 
+
 // using SendGrid's v3 Node.js Library
 // https://github.com/sendgrid/sendgrid-nodejs
 const sgMail = require('@sendgrid/mail');
@@ -79,27 +80,26 @@ function generateRandomString() {
 
 // poll vote page
 app.get("/poll/:id", (req, res) => {
+  if(!req.session.user_id){
+    req.session.user_id = generateRandomString();
+  }
+
   const id = req.params.id;
-  // const isValidcookie = req.session.pollId;
-  const isValidcookie = 1;
-  const table = "polls"
-  const value = "value"
+
   let templateVars = {};
-  if (isValidcookie){
 
+    let pollTitle = returnQueries
+    .getValue('polls', 'value', id)
+    .then((returnValue) => {
+      console.log("this is returnValue:",returnValue)
+      templateVars.pollName = returnValue;
+      })
 
-      let pollTitle = returnQueries
-      .getValue(table, value, id)
-      .then((returnValue) => {
-        console.log("this is returnValue:",returnValue)
-        templateVars.pollName = returnValue;
-        })
-
-      .then(() => {
+    .then(() => {
 
       let optionVars = returnQueries
       .getOptions(id).then((OptionInput) => {
-        //console.log(OptionInput)
+
         if(OptionInput.length > 0){
           const description = "new world"
           templateVars.poll =id
@@ -109,30 +109,42 @@ app.get("/poll/:id", (req, res) => {
         //poll count goes here
         res.render("pollshow", templateVars);
 
-        }else{
+        } else{
         res.status(403).send('Please input valid option');
         }
       })
-        // console.log("this is templateVars",templateVars)
-        // res.render("pollshow", templateVars);
-      })
+    })
 
-      .catch(err => console.log(err));
-
-
-
-
-    }else{
-      res.redirect(302,'/poll/');
-    }
-
+    .catch(err => console.log(err));
 });
+
 
 
 // poll results page
 app.get("/poll/:id/results", (req, res) => {
-  const templateVars = { poll: poll, user: email, cookie: cookie };
-  res.render("results", templateVars);
+  const pollId = req.params.id;
+  let totalPoints = 0;
+  let templateVars = {};
+
+  returnQueries.optionWeights(pollId, returnQueries.getOptions, returnQueries.getOptionId, returnQueries.weightSum, returnQueries.getValue)
+  .then(options => {
+    for(let option in options) {
+      totalPoints += options[option].points;
+    }
+    templateVars.totalPoints = totalPoints;
+    for(let option in options){
+      templateVars[option] = {
+        value: option,
+        description: options[option].description,
+        proportion: options[option].points / totalPoints
+      }
+    }
+    returnQueries.getValue('polls', 'value', pollId)
+    .then((pollName) => {
+      templateVars.pollValue = pollName;
+      res.render("results", templateVars);
+    })
+  })
 });
 
 
@@ -142,15 +154,16 @@ app.get("/test", (req,res)=>{
 res.render("poll_links" )
 });
 
+
 /* ******** POST REQUESTS ******* */
 
 // new poll page
 app.post("/new_poll", (req, res) => {
 
-  console.log(req.body.email)
   const userEmail = req.body.email;
   const pollValue = req.body.pollValue;
   const options = req.body.options;
+  const descriptions = req.body.options;
 
   if (userEmail){
     let templateVars;
@@ -159,12 +172,12 @@ app.post("/new_poll", (req, res) => {
     insertQueries.insertUser(userEmail)
       .then(() => {
         insertQueries
-          .insertPoll(userEmail, pollValue, options, options, insertQueries.insertOptions)
+          .insertPoll(userEmail, pollValue, options, descriptions, insertQueries.insertOptions)
           .then((pollId) => {
 
           //create poll, generate poll id
           let urlShare = "http://localhost:8080/poll/"+pollId[0];
-          let urlAdmin = "http://localhost:8080/results/"+pollId[0];
+          let urlAdmin = "http://localhost:8080/poll/" +pollId[0]+"/results/";
 
           //send email
           sendEmail(userEmail,urlShare,urlAdmin);
@@ -195,6 +208,7 @@ function givePoints(options, optionId) {
 
 // poll vote page
 app.post("/poll/:id", (req, res) => {
+  const id = req.params.id;
 
   //check if user has voted
   returnQueries.checkCookie(req.session.user_id, req.params.id).then((user) => {
@@ -207,6 +221,15 @@ app.post("/poll/:id", (req, res) => {
     rankedOptions.forEach((option) => {
       insertQueries.insertVotes(req.params.id, option.value, req.session.user_id, option.pointWeight)
     })
+
+          //create poll, generate poll id
+          let urlShare = "http://localhost:8080/poll/"+id;
+          let urlAdmin = "http://localhost:8080/poll/"+id+"/results/";
+
+          //send email
+          returnQueries.getEmailFromPollId(id).then((email) => {
+            sendEmail(email, urlShare, urlAdmin);
+          })
   }).catch(err => console.log(err))
 });
 
@@ -231,12 +254,3 @@ function sendEmail(to,pollLink,adminLink){
   };
   sgMail.send(msg);
 }
-
-/*
-route paths
-  GET - /new_poll
-  POST - /new_poll
-  GET - /poll/:id
-  POST - /poll/:id
-  GET - /poll/:id/results
-*/
