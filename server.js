@@ -14,6 +14,9 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const cookieSession = require('cookie-session');
+var pollPageList = [];
+var pollPageList2 = [];
+
 
 app.use(cookieSession({
   secret: "super_secret"
@@ -58,6 +61,16 @@ app.get("/", (req, res) => {
   const templateVars = {};
   // const templateVars = { poll: poll, user: email, cookie: cookie };
   res.render("index", templateVars);
+});
+// poll page to list polls
+app.get("/poll", (req, res) => {
+  const templateVars = {};
+  console.log('this is pollPageList', pollPageList)
+  console.log('this is pollPageList2', pollPageList2)
+  templateVars.pollList = pollPageList2;
+  console.log(templateVars)
+  // const templateVars = { poll: poll, user: email, cookie: cookie };
+  res.render("poll", templateVars);
 });
 
 // new poll page
@@ -181,6 +194,31 @@ res.render("poll_links" )
 
 
 /* ******** POST REQUESTS ******* */
+
+//poll page to list polls
+
+app.post("/poll", (req, res) => {
+  let templateVars = {};
+  console.log("email on server get :",req.body.email)
+  const userEmail = req.body.email;
+
+  let pollList = returnQueries
+      .getPollIdFromEmail(userEmail)
+      .then((returnValue) => {
+        if (returnValue){
+          pollPageList2 = returnValue;
+          console.log("this is returnValue :", returnValue)
+          returnValue.forEach(function(poll) {
+          pollPageList.push(poll.id);
+          });
+        }
+      }).then(() => {
+        res.json({pollRedirect: "http://localhost:8080/poll/"});
+        res.render("poll", templateVars);
+
+      })
+
+});
 
 // new poll page
 app.post("/new_poll", (req, res) => {

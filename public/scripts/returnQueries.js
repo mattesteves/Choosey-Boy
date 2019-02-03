@@ -61,6 +61,15 @@ module.exports = function returnQueries(knex) {
     },
 
     //given a poll id and option value, returns option's id
+    getPollIdFromEmail: async function(email) {
+     try{
+       let poll = await knex.select('polls.id', 'polls.value').from('users').innerJoin('polls', {'users.id':'user_id'}).where({'users.email': email});
+       return poll;
+     } catch(e) {
+       console.log('error getting poll id givin email');
+     }
+   },
+
     getOptionId: async function(pollId, value) {
       try {
         let options = await knex.select('*').from('options')
@@ -93,16 +102,6 @@ module.exports = function returnQueries(knex) {
         return user[0].email;
       } catch(e) {
         console.log('error getting user email givin poll id');
-      }
-    },
-
-    //returns all poll ids that given email has created
-    getPollIdFromEmail: async function(email) {
-      try{
-        let poll = await knex.select('polls.id').from('users').innerJoin('polls', {'users.id':'user_id'}).where({'users.email': email});
-        return poll;
-      } catch(e) {
-        console.log('error getting poll id givin email');
       }
     }
 

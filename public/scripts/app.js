@@ -167,9 +167,25 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
   });
 
 
+  $('#emaillist').click(function(){
+    let emaillist =($('#emaillist22').val());
+    console.log("this is emaillist1",emaillist);
+  if (emaillist === "" || emaillist === null) {
+    $(".error").text("Error ! Not a valid input.");
+  }else{
+   $.ajax({
+      method: "POST",
+      url: "/poll",
+      data: {
+        email: emaillist,
+      }
+    }).then((data) => {
+      console.log("this is url",data.pollRedirect);
+       window.location.href = data.pollRedirect
+    })
+  }
 
-}); // End of Document.ready
+  })
 
-
-
+});
 
