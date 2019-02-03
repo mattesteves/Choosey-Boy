@@ -1,5 +1,18 @@
 <% include partials/_header.ejs %>
-<i class="fas fa-arrow-circle-up"></i>
-<i class="fas fa-arrow-circle-down"></i>
+<blockquote class="pullquote">
+        Make polls with us and get rich !!    LOL just kidding :)
+    </blockquote>
+
+    <h3>Your Polls</h3>
+    <% for (var poll in pollList) { %>
+        <tr style="height:30px;">
+            <form action="/poll/<%=poll%>" method="POST">
+              <td>
+               <a href="/poll/<%=poll%>"><%=poll%></a>
+              </td>
+            </form>
+        </tr>
+     <% } %>
+    <div class="col"></div>
 
 <% include partials/_footer.ejs %>
