@@ -85,7 +85,6 @@ app.get("/poll/:id", (req, res) => {
   }
 
   const id = req.params.id;
-  // const isValidcookie = req.session.pollId;
 
   let templateVars = {};
 
@@ -100,7 +99,7 @@ app.get("/poll/:id", (req, res) => {
 
       let optionVars = returnQueries
       .getOptions(id).then((OptionInput) => {
-        //console.log(OptionInput)
+
         if(OptionInput.length > 0){
           const description = "new world"
           templateVars.poll =id
@@ -110,7 +109,7 @@ app.get("/poll/:id", (req, res) => {
         //poll count goes here
         res.render("pollshow", templateVars);
 
-        }else{
+        } else{
         res.status(403).send('Please input valid option');
         }
       })
@@ -129,7 +128,6 @@ app.get("/poll/:id/results", (req, res) => {
 
   returnQueries.optionWeights(pollId, returnQueries.getOptions, returnQueries.getOptionId, returnQueries.weightSum, returnQueries.getValue)
   .then(options => {
-    console.log(options);
     for(let option in options) {
       totalPoints += options[option].points;
     }
@@ -137,6 +135,7 @@ app.get("/poll/:id/results", (req, res) => {
     for(let option in options){
       templateVars[option] = {
         value: option,
+        description: options[option].description,
         proportion: options[option].points / totalPoints
       }
     }

@@ -26,7 +26,6 @@ module.exports = function insertQueries(knex) {
           insertData(newPollId[0], option, descriptions[i]);
         });
 
-
         return newPollId;
       } catch (e) {
         console.log('error inserting poll into polls table: ', e);
