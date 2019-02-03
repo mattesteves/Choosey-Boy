@@ -63,7 +63,7 @@ $('.optionProportion').each(function() {
 })
 
 for(let i = 0; i < optionValues.length; i++) {
-  optionValues[i] += ` (${optionProportions[i] * 100}%)`;
+  optionValues[i] += ` (${Math.round(optionProportions[i] * 100)}%)`;
 }
 
 let data = {
