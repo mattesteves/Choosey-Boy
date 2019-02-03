@@ -72,7 +72,7 @@ module.exports = function returnQueries(knex) {
 
     getOptionId: async function(pollId, value) {
       try {
-        let options = await knex.select('*').from('options');
+        let options = await knex.select('*').from('options')
         .where({poll_id: pollId})
         .andWhere({value: value});
         return options[0].id;
