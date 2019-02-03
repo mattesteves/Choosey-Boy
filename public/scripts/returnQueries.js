@@ -34,11 +34,11 @@ module.exports = function returnQueries(knex) {
         let options = await getOptions(pollId);
 
         for(let option of options) {
-            let id = await getOptionId(pollId, option);
+            let id = await getOptionId(pollId, option.value);
             let description = await getValue('options', 'description', id)
             let pointSum = await weightSum(id);
             totalPoints += pointSum;
-            optionTotalPoints[option] = {
+            optionTotalPoints[option.value] = {
               id: id,
               points: pointSum,
               description: description
