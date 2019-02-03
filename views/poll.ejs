@@ -1,22 +1,28 @@
 <% include partials/_header.ejs %>
-<blockquote class="pullquote">
-        Make polls with us and get rich !!    LOL just kidding :)
-    </blockquote>
 
-       <h3>Your Polls</h3>
+
+       <h2>Your Polls</h2><br>
 
       <%  pollList.forEach(function(key) {  %>
         <tr style="height:30px;">
+          <div class="your_link">
             <form action="/poll/<%= key.id%>" method="POST">
               <td>
-               <a href="/poll/<%= key.id%>"><%= key.id +"--" +key.value%></a>
+               <a href="/poll/<%= key.id%>"><%= key.value%></a>
               </td>
-
             </form>
+          </div>
         </tr>
 
       <% })  %>
 
     <div class="col"></div>
+<br>
+    <a href="/new_poll">
+      <button type="button" class="btn btn-outline-secondary start">
+          <i class="fas fa-edit"></i>
+          New poll
+      </button>
+    </a>
 
 <% include partials/_footer.ejs %>
