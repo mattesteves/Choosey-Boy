@@ -156,7 +156,7 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
 
   $('#pollshow_submit').click( function (){
     let votes =[]
-  $('.option_text').each(function(){
+  $('.pollshow_option_text').each(function(){
     votes.push($(this).text() )
     console.log($(this).text())
   });

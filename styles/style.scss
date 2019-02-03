@@ -165,8 +165,14 @@ $bg-purp: #625d8e;
         }
 
 .pollshow_option_text{
-
     justify-content: center;
+}
+.pollshow_option_desc{
+    justify-content: center;
+    border: 0;
+    border-top: 1px;    
+    border-style: solid;
+    border-color: $bg-purp;
 }
 
 }
