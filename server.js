@@ -96,7 +96,6 @@ app.get("/poll/:id", (req, res) => {
     let pollTitle = returnQueries
     .getValue('polls', 'value', id)
     .then((returnValue) => {
-      console.log("this is returnValue:",returnValue)
       templateVars.pollName = returnValue;
       })
 
@@ -167,7 +166,7 @@ app.get("/poll/:id/results", (req, res) => {
     .then((pollName) => {
       templateVars.pollValue = pollName;
       templateVars.options = optionList;
-      console.log(templateVars)
+
       res.render("results", templateVars);
     })
   })
@@ -250,15 +249,15 @@ app.post("/poll/:id", (req, res) => {
       insertQueries.insertVotes(req.params.id, option.value, req.session.user_id, option.pointWeight)
     })
 
-          //create poll, generate poll id
-          let urlShare = "http://localhost:8080/poll/" + id;
-          let urlAdmin = "http://localhost:8080/poll/" + id + "/results/";
+    //create poll, generate poll id
+    let urlShare = "http://localhost:8080/poll/" + id;
+    let urlAdmin = "http://localhost:8080/poll/" + id + "/results/";
 
-          //send email
-          returnQueries.getEmailFromPollId(id).then((email) => {
-            sendEmail(email, urlShare, urlAdmin);
-            res.json({url: urlAdmin})
-          })
+    //send email
+    returnQueries.getEmailFromPollId(id).then((email) => {
+      sendEmail(email, urlShare, urlAdmin);
+      res.json({url: urlAdmin})
+    })
   }).catch(err => console.log(err))
 });
 
@@ -267,8 +266,6 @@ app.listen(PORT, () => {
   console.log("Choosey Boy listening on port " + PORT);
 
 });
-
-
 
 function sendEmail(to,pollLink,adminLink){
   console.log(pollLink)
