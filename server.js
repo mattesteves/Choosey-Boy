@@ -123,6 +123,7 @@ app.get("/poll/:id/results", (req, res) => {
   const pollId = req.params.id;
   let totalPoints = 0;
   let templateVars = {};
+  let optionList = [];
 
   returnQueries.optionWeights(pollId, returnQueries.getOptions, returnQueries.getOptionId, returnQueries.weightSum, returnQueries.getValue)
   .then(options => {
@@ -131,16 +132,18 @@ app.get("/poll/:id/results", (req, res) => {
     }
     templateVars.totalPoints = totalPoints;
     for(let option in options){
-      templateVars[option] = {
+      optionList.push({
         value: option,
         points: options[option].points,
         description: options[option].description,
-        proportion: options[option].points / totalPoints
-      }
+        proportion: options[option].points / totalPoints,
+      })
     }
     returnQueries.getValue('polls', 'value', pollId)
     .then((pollName) => {
       templateVars.pollValue = pollName;
+      templateVars.options = optionList;
+      console.log(templateVars)
       res.render("results", templateVars);
     })
   })
