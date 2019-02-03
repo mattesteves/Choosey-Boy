@@ -48,9 +48,16 @@ $('.option-container').on('click', 'button', function(){
 // Submitting a poll on new_poll.ejs
 
 $('.btn.btn-outline-secondary.start.subpoll').click(function(){
+  if (counter < 2){
+    $(".error_ms").text("You need to add some options, wiseguy!");
+    $(".error").fadeIn();
+    setTimeout(fade, 3000 );
+    return
 
- function fade(){
-     $(".error").fadeOut()
+  }
+
+  function fade(){
+      $(".error").fadeOut()
   };
 
   let emailOutput = $('.form-control.emailNewPoll').val();
@@ -96,8 +103,8 @@ $('.form-control.option_val').each(function(){
     return
   }
 
-  if (emailOutput === "" || emailOutput === null) {
-    $(".error_ms").text("Please submit an email address.");
+  if (emailOutput === "" || emailOutput === null || emailOutput.includes('@')=== false ) {
+    $(".error_ms").text("Please submit a valid email address.");
     $(".error").fadeIn();
     $('.form-control.emailNewPoll').focus();
     setTimeout(fade, 3000 );
