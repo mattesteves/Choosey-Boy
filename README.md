@@ -28,4 +28,6 @@ Users can then vote on their preferences by clicking up and down arrows, and are
 
 ## Screenshots
 
-[pic 1](url1)
+[Asking the important questions](https://imgur.com/lLgUVOa)
+[Voting](https://imgur.com/mUMuGrm)
+[The truth revealed](https://imgur.com/Jr6ZtfZ)
