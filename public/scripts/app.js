@@ -169,7 +169,6 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
         votes: votes
       }
     })
-
   return votes
   });
 

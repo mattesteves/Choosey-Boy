@@ -12,14 +12,14 @@ https://www.chartjs.org
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
-
-<canvas id="myChart"></canvas>
-
+<div>
+<canvas id="myChart" width="400px" height="400px"></canvas>
+</div>
 <div class="hide">
 
   <p id="totalPoints"> <%= totalPoints %> </p>
 
-  <div>
+<div>
     <% options.forEach((option) => { %>
       <p class="optionValue"> <%= option.value %> </p>
     <% }) %>
@@ -38,7 +38,7 @@ https://www.chartjs.org
   </div>
 
 </div>
-
+</di>
 <script>
 Chart.defaults.global.legend.position = 'bottom';
 Chart.defaults.global.legend.labels.fontColor= 'white';
@@ -92,13 +92,20 @@ var myPieChart = new Chart(ctx,{
     },
     labels: {
         color: 'black',
-        position: 'bottom'
+        position: 'left'
     }
 
     }
 });
 </script>
 
+<br>
+<a href="/new_poll">    
+  <button type="button" class="btn btn-outline-secondary start">
+      <i class="fas fa-edit"></i>
+      New poll
+  </button>
+</a>
 
 <% include partials/_footer.ejs %>
 

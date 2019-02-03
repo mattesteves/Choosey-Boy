@@ -12,7 +12,7 @@
   "author": "Lighthouse Labs",
   "license": "ISC",
   "dependencies": {
-    "@sendgrid/mail": "^6.3.1",
+    "": "^6.3.1",
     "body-parser": "^1.15.2",
     "bootstrap": "^4.2.1",
     "cookie-session": "^2.0.0-beta.3",
