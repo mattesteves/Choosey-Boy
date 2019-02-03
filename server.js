@@ -88,7 +88,7 @@ app.get("/poll/:id", (req, res) => {
 
   //check if user has voted
   returnQueries.checkCookie(req.session.user_id, req.params.id).then((user) => {
-    if(user[0]) res.redirect("http://localhost:8080/poll/"+id+"/results/")
+    if(user[0]) res.redirect("http://localhost:8080/poll/" + id + "/results/")
   })
   .then(() => {
     let templateVars = {};
@@ -129,6 +129,18 @@ app.get("/poll/:id", (req, res) => {
   })
 
 });
+
+//page that shows the votes and results urls after poll is created
+app.get("/poll/:id/urls", (req, res) => {
+  const pollId = req.params.id;
+  const urlShare = "http://localhost:8080/poll/" + pollId;
+  const urlAdmin = "http://localhost:8080/poll/" + pollId + "/results/";
+  let templateVars = {
+    voteUrl: urlShare,
+    resultUrl: urlAdmin
+  }
+  res.render('poll_links', templateVars)
+})
 
 // poll results page
 app.get("/poll/:id/results", (req, res) => {
@@ -193,10 +205,12 @@ app.post("/new_poll", (req, res) => {
           let urlShare = "http://localhost:8080/poll/"+pollId[0];
           let urlAdmin = "http://localhost:8080/poll/" +pollId[0]+"/results/";
 
+          let pollLinksPath = `/poll/${pollId[0]}/urls`;
+
           //send email
           sendEmail(userEmail,urlShare,urlAdmin);
 
-          res.json({url: urlShare})
+          res.json({url: pollLinksPath})
         })
         .catch(err => console.log(err));
     })
@@ -237,8 +251,8 @@ app.post("/poll/:id", (req, res) => {
     })
 
           //create poll, generate poll id
-          let urlShare = "http://localhost:8080/poll/"+id;
-          let urlAdmin = "http://localhost:8080/poll/"+id+"/results/";
+          let urlShare = "http://localhost:8080/poll/" + id;
+          let urlAdmin = "http://localhost:8080/poll/" + id + "/results/";
 
           //send email
           returnQueries.getEmailFromPollId(id).then((email) => {
@@ -265,7 +279,7 @@ function sendEmail(to,pollLink,adminLink){
     from: to,
     subject: 'ChooseyBoy Poll links',
     text: 'Please find your poll share and Admin links below',
-    html:"Link to the poll: "+ pollLink + " <br>" + "Admin link : "+ adminLink,
+    html:"Link to the poll: " + pollLink + " <br>" + "Admin link : " + adminLink,
   };
   sgMail.send(msg);
 }
