@@ -101,10 +101,16 @@ app.get("/poll/:id", (req, res) => {
       .getOptions(id).then((OptionInput) => {
 
         if(OptionInput.length > 0){
-          const description = "new world"
+          let optionValues = [];
+          let optionDescriptions = [];
+          OptionInput.forEach((option) => {
+            optionValues.push(option.value);
+            optionDescriptions.push(option.description);
+          })
+
           templateVars.poll =id
-          templateVars.value = OptionInput
-          templateVars.description = description
+          templateVars.value = optionValues
+          templateVars.descriptions = optionDescriptions
 
         //poll count goes here
         res.render("pollshow", templateVars);
@@ -197,7 +203,7 @@ app.post("/new_poll", (req, res) => {
 
 //give options points based on vote
 function givePoints(options, optionId) {
-  let optionsAndRank = []
+  let optionsAndRank = [];
   options.forEach((option, rank) => {
     let pointWeight = options.length - (rank + 1);
     optionsAndRank.push({
