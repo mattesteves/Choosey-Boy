@@ -35,7 +35,7 @@ module.exports = function returnQueries(knex) {
 
         for(let option of options) {
             let id = await getOptionId(pollId, option.value);
-            let description = await getValue('options', 'description', id)
+            let description = await getValue('options', 'description', id);
             let pointSum = await weightSum(id);
             totalPoints += pointSum;
             optionTotalPoints[option.value] = {
@@ -44,7 +44,7 @@ module.exports = function returnQueries(knex) {
               description: description
             }
           }
-        return optionTotalPoints
+        return optionTotalPoints;
       } catch(e) {
         console.log('error calculating percentage');
       }
@@ -72,12 +72,12 @@ module.exports = function returnQueries(knex) {
 
     getOptionId: async function(pollId, value) {
       try {
-        let options = await knex.select('*').from('options')
+        let options = await knex.select('*').from('options');
         .where({poll_id: pollId})
         .andWhere({value: value});
         return options[0].id;
       } catch(e) {
-        console.log('error getting option id')
+        console.log('error getting option id');
       }
     },
 
