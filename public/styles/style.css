@@ -1,0 +1,213 @@
+.whole_thing {
+  background-color: #625d8e;
+  justify-content: center;
+  background-image: url("/styles/images/square_bg.png");
+}
+
+.container.content_grid {
+  width: 100%;
+}
+
+.logotext {
+  padding: 1rem;
+  font-family: 'Just Another Hand', cursive;
+  font-size: 600%;
+  margin: auto;
+  color: white;
+  text-align: center;
+  text-shadow: .2rem .2rem darkgray;
+}
+
+.logotext a {
+  color: white;
+}
+
+.logotext a:hover {
+  text-decoration: none;
+  color: white;
+  animation: shake, 0.5s;
+}
+
+.shake {
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+}
+
+.pullquote {
+  font-size: 1.5rem;
+  margin-bottom: 15%;
+}
+
+.col-sm-6.maincon {
+  color: white;
+  text-align: center;
+}
+
+.col-sm-6.maincon button.btn.btn-outline-secondary.start {
+  font-size: 1rem;
+  color: #625d8e;
+  background-color: white;
+  margin-bottom: 5%;
+}
+
+.col-sm-6.maincon button.btn.btn-outline-secondary.start:hover {
+  color: white;
+  background-color: #625d8e;
+  border-color: white;
+}
+
+.col-sm-6.maincon button.btn.btn-success.submit_button {
+  color: white;
+  background-color: #625d8e;
+  border-color: white;
+}
+
+.ind_option {
+  width: 60%;
+  margin: auto;
+  padding-bottom: 2%;
+}
+
+.ind_option button {
+  color: white;
+  background-color: rgba(255, 0, 0, 0.527);
+  border-color: rgba(255, 0, 0, 0.527);
+  border: none;
+}
+
+.ind_option button:hover {
+  background-color: rgba(255, 0, 0, 0.527);
+  border-color: rgba(255, 0, 0, 0.527);
+  border: none;
+}
+
+.form-control.form-control-lg {
+  margin-bottom: 2%;
+}
+
+#choose_title {
+  padding-bottom: 2rem;
+  font-size: 1rem;
+}
+
+.input-group.emailNewPoll {
+  width: 60%;
+  margin: auto;
+  margin-bottom: 4%;
+}
+
+.form-control.form-control.newPollTitle {
+  width: 80%;
+  margin: auto;
+  margin-bottom: 2%;
+}
+
+#favourite {
+  font-family: 'Just Another Hand', cursive;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: initial;
+  width: 90%;
+  max-width: 300px;
+  margin: auto;
+  background-color: #ff00dd;
+  padding: 1rem;
+  border-radius: 15px;
+  font-size: 150%;
+}
+
+#least_favourite {
+  font-family: 'Just Another Hand', cursive;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: initial;
+  width: 90%;
+  max-width: 300px;
+  margin: auto;
+  background-color: #096900;
+  padding: 1rem;
+  border-radius: 15px;
+  font-size: 150%;
+}
+
+.pollshow_indoption {
+  display: flex;
+  background: white;
+  color: #625d8e;
+  display: block;
+  padding: 1rem;
+  border-radius: 10px;
+  word-wrap: break-word;
+  text-align: center;
+  width: 90%;
+  max-width: 300px;
+  margin: 1.5% auto;
+}
+
+.pollshow_indoption .arrow {
+  font-size: 150%;
+}
+
+.pollshow_indoption .pollshow_option_text {
+  justify-content: center;
+}
+
+.pollshow_indoption .pollshow_option_desc {
+  justify-content: center;
+  border: 0;
+  border-top: 1px;
+  border-style: solid;
+  border-color: #625d8e;
+}
+
+.links_label {
+  font-size: 1.5rem;
+  margin: 5% 0 5% 0;
+}
+
+form.copy-links {
+  width: 80%;
+  margin: auto;
+}
+
+.error {
+  width: 50%;
+  margin: auto;
+  margin-bottom: 2%;
+  background-color: white;
+  color: red;
+  border-radius: 15px;
+  padding: 2%;
+  z-index: 1000;
+}
+
+.hide {
+  display: none;
+}
+
+#chart-container {
+  height: 128px;
+}
