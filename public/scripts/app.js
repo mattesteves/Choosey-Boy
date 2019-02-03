@@ -66,6 +66,7 @@ $('.btn.btn-outline-secondary.start.subpoll').click(function(){
   if (pollQuestion === "" || pollQuestion === null) {
     $(".error_ms").text("Your poll needs a question");
     $(".error").fadeIn();
+    $(".error").addClass("shake");
     $('.form-control.newPollTitle').focus();
     setTimeout(fade, 3000 );
     return }
@@ -99,6 +100,7 @@ $('.form-control.option_val').each(function(){
 
   if (error === true){
     $(".error").fadeIn();
+    $(".error").addClass("shake");
     setTimeout(fade, 3000 );
     return
   }
