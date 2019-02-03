@@ -1,9 +1,9 @@
+$('.error').hide();
 $(document).ready(function eventhandlers(){
 
 let templateVars={};
 
 let counter= 2;
-$('.error').hide();
 
 $( '.btn.btn-outline-secondary.start.add-option' ).click(function() {
   event.preventDefault;
@@ -39,12 +39,17 @@ $('.option-container').on('click', 'button', function(){
 });
 
 $('.btn.btn-outline-secondary.start.subpoll').click(function(){
+  
+ function fade(){
+     $(".error").fadeOut()
+  };
 
   let emailOutput = $('.form-control.emailNewPoll').val();
   let pollQuestion = $('.form-control.newPollTitle').val();
   if (pollQuestion === "" || pollQuestion === null) {
     $(".error_ms").text("Your poll needs a question");
-    $(".error").slideDown();
+    $(".error").fadeIn();
+    setTimeout(fade, 3000 );
     return }
 
   let optionOutput = [];
@@ -59,13 +64,15 @@ $('.form-control.option_val').each(function(){
   })
   if (error === true){
     $(".error_ms").text("You can't submit an empty answer!");
-    $(".error").slideDown(); 
+    $(".error").fadeIn();
+    setTimeout(fade, 3000 ); 
     return   
   }
 
   if (emailOutput === "" || emailOutput === null) {
     $(".error_ms").text("Please submit an email address.");
-    $(".error").slideDown();
+    $(".error").fadeIn();
+    setTimeout(fade, 3000 );  
     return
   }
 
