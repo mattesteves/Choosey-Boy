@@ -1,9 +1,12 @@
 $('.error').hide();
+
 $(document).ready(function eventhandlers(){
 
 let templateVars={};
 
 let counter= 2;
+
+// Adding a new option on new_poll.ejs
 
 $( '.btn.btn-outline-secondary.start.add-option' ).click(function() {
   event.preventDefault;
@@ -30,6 +33,8 @@ $( '.btn.btn-outline-secondary.start.add-option' ).click(function() {
   }
 });
 
+//Removing an option on new_poll.ejs
+
 $('.option-container').on('click', 'button', function(){
   $(this).closest('div .ind_option').slideUp('slow');
   $(this).closest('div .ind_option').detach();
@@ -40,6 +45,8 @@ $('.option-container').on('click', 'button', function(){
 
 });
 
+// Submitting a poll on new_poll.ejs
+
 $('.btn.btn-outline-secondary.start.subpoll').click(function(){
   
  function fade(){
@@ -48,6 +55,7 @@ $('.btn.btn-outline-secondary.start.subpoll').click(function(){
 
   let emailOutput = $('.form-control.emailNewPoll').val();
   let pollQuestion = $('.form-control.newPollTitle').val();
+  
   if (pollQuestion === "" || pollQuestion === null) {
     $(".error_ms").text("Your poll needs a question");
     $(".error").fadeIn();
@@ -58,18 +66,29 @@ $('.btn.btn-outline-secondary.start.subpoll').click(function(){
   let votes = [];
   let descriptionOut= [];
   let error= false;
+
 $('.form-control.option_val').each(function(){
     if ($(this).val() ==="" || $(this).val() === null){
+    $(".error_ms").text("You can't submit an empty answer!");
     error= true;
     return
     }
+
+  for(options in optionOutput){
+    if ($(this).val()===optionOutput[options]){
+      $(".error_ms").text("No duplicate answers please!");; 
+      error = true;
+    }
+
+    }
     optionOutput.push($(this).val());
+      
 
     descriptionOut.push($(this).parent().next('input').val());
-  })
-  console.log(descriptionOut);
+  });
+
+
   if (error === true){
-    $(".error_ms").text("You can't submit an empty answer!");
     $(".error").fadeIn();
     setTimeout(fade, 3000 ); 
     return   
@@ -99,6 +118,7 @@ $('.form-control.option_val').each(function(){
 });
 
 
+// Voting an option up on poll_show.ejs
 
 $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-up', function(){
   if ($(this).closest('div .pollshow_indoption').prev().length === 0){
@@ -109,6 +129,8 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-up', function(){
 $(this).closest('div .pollshow_indoption').slideDown('');}
 });
 
+// Voting an option down on poll_show.ejs
+
 $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
   if ($(this).closest('div .pollshow_indoption').next().length === 0){
     return
@@ -117,6 +139,8 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
     $(this).closest('div .pollshow_indoption').next().insertBefore($(this).closest('div .pollshow_indoption'))});
   $(this).closest('div .pollshow_indoption').slideDown('');
   });
+
+//Submitting votes on poll_show.ejs
 
   $('#pollshow_submit').click( function (){
     let votes =[]
@@ -139,7 +163,7 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
   
 
 
-});
+}); // End of Document.ready
 
 
 
