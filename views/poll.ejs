@@ -3,15 +3,17 @@
         Make polls with us and get rich !!    LOL just kidding :)
     </blockquote>
 
-    <h3>Your Polls</h3>
-    <% for (var poll in pollList) { %>
+       <h3>Your Polls</h3>
+     <% for (var i = 0; i < pollList.length; i++) {  %>
         <tr style="height:30px;">
-            <form action="/poll/<%=poll%>" method="POST">
+            <form action="/poll/<%= pollList[i]%>" method="POST">
               <td>
-               <a href="/poll/<%=poll%>"><%=poll%></a>
+               <a href="/poll/<%= pollList[i]%>"><%= pollList[i]%></a>
               </td>
+
             </form>
         </tr>
+
      <% } %>
     <div class="col"></div>
 
