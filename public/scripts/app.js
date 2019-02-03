@@ -27,7 +27,7 @@ $( '.btn.btn-outline-secondary.start.add-option' ).click(function() {
 
 `
   );
-  $('option.contianer').last('.form-control').focus();
+  $('.option_val').focus();
   if (counter === 10){
     $('.btn.btn-outline-secondary.start.add-option').slideUp();
     }
@@ -48,9 +48,16 @@ $('.option-container').on('click', 'button', function(){
 // Submitting a poll on new_poll.ejs
 
 $('.btn.btn-outline-secondary.start.subpoll').click(function(){
+  if (counter < 2){
+    $(".error_ms").text("You need to add some options, wiseguy!");
+    $(".error").fadeIn();
+    setTimeout(fade, 3000 );
+    return
 
- function fade(){
-     $(".error").fadeOut()
+  }
+
+  function fade(){
+      $(".error").fadeOut()
   };
 
   let emailOutput = $('.form-control.emailNewPoll').val();
@@ -59,6 +66,7 @@ $('.btn.btn-outline-secondary.start.subpoll').click(function(){
   if (pollQuestion === "" || pollQuestion === null) {
     $(".error_ms").text("Your poll needs a question");
     $(".error").fadeIn();
+    $(".error").addClass("shake");
     $('.form-control.newPollTitle').focus();
     setTimeout(fade, 3000 );
     return }
@@ -92,12 +100,13 @@ $('.form-control.option_val').each(function(){
 
   if (error === true){
     $(".error").fadeIn();
+    $(".error").addClass("shake");
     setTimeout(fade, 3000 );
     return
   }
 
-  if (emailOutput === "" || emailOutput === null) {
-    $(".error_ms").text("Please submit an email address.");
+  if (emailOutput === "" || emailOutput === null || emailOutput.includes('@')=== false ) {
+    $(".error_ms").text("Please submit a valid email address.");
     $(".error").fadeIn();
     $('.form-control.emailNewPoll').focus();
     setTimeout(fade, 3000 );
@@ -146,8 +155,8 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
 //Submitting votes on poll_show.ejs
 
   $('#pollshow_submit').click( function (){
-    let votes = [];
-  $('.option_text').each(function(){
+    let votes =[]
+  $('.pollshow_option_text').each(function(){
     votes.push($(this).text() )
     console.log($(this).text())
   });
@@ -162,7 +171,6 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
     }).then((data) => {
        window.location.href = data.url
     })
-
   return votes
   });
 
