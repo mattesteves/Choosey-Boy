@@ -3,6 +3,11 @@
 <div id="choose_title">
 What are you choosing today?<br>
 </div>
+
+<div class="error">
+        <i class="fas fa-exclamation-circle"></i><span class="error_ms"></span>
+</div>
+
 <input class="form-control form-control newPollTitle" type="text" placeholder="Ex: What's the ultimate breakfast food?">
 
 <div class="input-group emailNewPoll">
@@ -15,23 +20,28 @@ What are you choosing today?<br>
 
 <div class="option-container">
     <div class="ind_option">
-            <div class="input-group">
-                    <input type="text" class="form-control option_val" placeholder="Waffles" aria-label="" aria-describedby="basic-addon1">
-                    <div class="input-group-append">
-                      <button class="btn btn-success" type="button"><i class="fas fa-backspace">    </i></button>
-                    </div>
+        <div class="input-group">
+            <input type="text" class="form-control option_val" placeholder="Waffles" aria-label="" aria-describedby="basic-addon1">
+            <div class="input-group-append">
+                <button class="btn btn-success" type="button">
+                    <i class="fas fa-backspace"></i>
+                </button>
             </div>
+        </div>
+        <input class="form-control form-control-lg" type="text" placeholder="Description">
      </div>
 
     <div class="ind_option">
-            <div class="input-group">
-                    <input type="text" class="form-control option_val" placeholder="Pancakes" aria-label="" aria-describedby="basic-addon1">
-                    <div class="input-group-append">
-                      <button class="btn btn-success" type="button"><i class="fas fa-backspace">    </i></button>
-                    </div>
-                </div>
+        <div class="input-group">
+            <input type="text" class="form-control option_val" placeholder="Pancakes" aria-label="" aria-describedby="basic-addon1">
+            <div class="input-group-append">
+                <button class="btn btn-success" type="button">
+                    <i class="fas fa-backspace">    </i>
+                </button>
+            </div>
+        </div>
+        <input class="form-control form-control-lg" type="text" placeholder="Description">
     </div>
-
 
 </div> <!--end of options container-->
 
@@ -43,12 +53,11 @@ What are you choosing today?<br>
     </button>
     <br>
 
+    
     <button type="button" class="btn btn-outline-secondary start subpoll">
         Create Poll
         <i class="fas fa-check-circle"></i>
     </button>
-
-
 
 <% include partials/_footer.ejs %>
 

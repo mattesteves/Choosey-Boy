@@ -157,4 +157,13 @@ form.copy-links{
     margin: auto;
 }
 
-
+.error{
+    width:50%;
+    margin:auto;
+    margin-bottom: 2%;
+    background-color: white;
+    color: red;
+    border-radius: 15px;
+    padding:2%;
+    z-index: 1000;
+}
