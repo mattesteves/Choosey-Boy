@@ -78,7 +78,7 @@ module.exports = function returnQueries(knex) {
         let options = await knex('options').where({poll_id: pollId});
         let optionValues = [];
         options.forEach((option) => {
-          optionValues.push(option.value);
+          optionValues.push({value: option.value, description: option.description});
         })
         return optionValues;
       } catch(e) {

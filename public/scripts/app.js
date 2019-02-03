@@ -146,7 +146,7 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
 //Submitting votes on poll_show.ejs
 
   $('#pollshow_submit').click( function (){
-    let votes =[]
+    let votes = [];
   $('.option_text').each(function(){
     votes.push($(this).text() )
     console.log($(this).text())
