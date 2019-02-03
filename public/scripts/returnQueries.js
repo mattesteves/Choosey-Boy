@@ -25,6 +25,7 @@ module.exports = function returnQueries(knex) {
       }
     },
 
+    //returns an object of each option with value, total points, id and description
     optionWeights: async function(pollId, getOptions, getOptionId, weightSum, getValue) {
       try {
         let totalPoints = 0;
@@ -49,6 +50,7 @@ module.exports = function returnQueries(knex) {
       }
     },
 
+    //checks if userid cookie is in voted database
     checkCookie: async function(cookie, pollId) {
       try {
         let user = await knex.select('user_cookie').from('votes').innerJoin('options', {'option_id':'options.id'}).where({user_cookie: cookie}).andWhere({poll_id: pollId});
@@ -58,6 +60,7 @@ module.exports = function returnQueries(knex) {
       }
     },
 
+    //given a poll id and option value, returns option's id
     getOptionId: async function(pollId, value) {
       try {
         let options = await knex.select('*').from('options')
@@ -83,6 +86,7 @@ module.exports = function returnQueries(knex) {
       }
     },
 
+    //returns poll creator's email given poll id
     getEmailFromPollId: async function(pollId) {
       try{
         let user = await knex.select('email').from('users').innerJoin('polls', {'users.id':'user_id'}).where({'polls.id': pollId});
@@ -92,6 +96,7 @@ module.exports = function returnQueries(knex) {
       }
     },
 
+    //returns all poll ids that given email has created
     getPollIdFromEmail: async function(email) {
       try{
         let poll = await knex.select('polls.id').from('users').innerJoin('polls', {'users.id':'user_id'}).where({'users.email': email});

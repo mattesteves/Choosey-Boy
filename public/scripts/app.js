@@ -48,14 +48,14 @@ $('.option-container').on('click', 'button', function(){
 // Submitting a poll on new_poll.ejs
 
 $('.btn.btn-outline-secondary.start.subpoll').click(function(){
-  
+
  function fade(){
      $(".error").fadeOut()
   };
 
   let emailOutput = $('.form-control.emailNewPoll').val();
   let pollQuestion = $('.form-control.newPollTitle').val();
-  
+
   if (pollQuestion === "" || pollQuestion === null) {
     $(".error_ms").text("Your poll needs a question");
     $(".error").fadeIn();
@@ -78,13 +78,13 @@ $('.form-control.option_val').each(function(){
 
   for(options in optionOutput){
     if ($(this).val()===optionOutput[options]){
-      $(".error_ms").text("No duplicate answers please!"); 
+      $(".error_ms").text("No duplicate answers please!");
       error = true;
     }
 
     }
     optionOutput.push($(this).val());
-      
+
 
     descriptionOut.push($(this).parent().next('input').val());
   });
@@ -92,15 +92,15 @@ $('.form-control.option_val').each(function(){
 
   if (error === true){
     $(".error").fadeIn();
-    setTimeout(fade, 3000 ); 
-    return   
+    setTimeout(fade, 3000 );
+    return
   }
 
   if (emailOutput === "" || emailOutput === null) {
     $(".error_ms").text("Please submit an email address.");
     $(".error").fadeIn();
     $('.form-control.emailNewPoll').focus();
-    setTimeout(fade, 3000 );  
+    setTimeout(fade, 3000 );
     return
   }
 
@@ -116,7 +116,7 @@ $('.form-control.option_val').each(function(){
     }).then((data) => {
        window.location.href = data.url
     })
-  
+
 
 });
 
@@ -163,11 +163,11 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
 
   return votes
   });
-  
+
 
 
 }); // End of Document.ready
 
 
 
-  
+

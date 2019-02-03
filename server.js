@@ -118,8 +118,6 @@ app.get("/poll/:id", (req, res) => {
     .catch(err => console.log(err));
 });
 
-
-
 // poll results page
 app.get("/poll/:id/results", (req, res) => {
   const pollId = req.params.id;
@@ -135,6 +133,7 @@ app.get("/poll/:id/results", (req, res) => {
     for(let option in options){
       templateVars[option] = {
         value: option,
+        points: options[option].points,
         description: options[option].description,
         proportion: options[option].points / totalPoints
       }
@@ -163,7 +162,7 @@ app.post("/new_poll", (req, res) => {
   const userEmail = req.body.email;
   const pollValue = req.body.pollValue;
   const options = req.body.options;
-  const descriptions = req.body.options;
+  const descriptions = req.body.descriptions;
 
   if (userEmail){
     let templateVars;
