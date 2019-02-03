@@ -27,7 +27,7 @@ $( '.btn.btn-outline-secondary.start.add-option' ).click(function() {
 
 `
   );
-  $('option.contianer').last('.form-control').focus();
+  $('.option_val').focus();
   if (counter === 10){
     $('.btn.btn-outline-secondary.start.add-option').slideUp();
     }
