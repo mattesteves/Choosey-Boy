@@ -59,6 +59,7 @@ $('.btn.btn-outline-secondary.start.subpoll').click(function(){
   if (pollQuestion === "" || pollQuestion === null) {
     $(".error_ms").text("Your poll needs a question");
     $(".error").fadeIn();
+    $('.form-control.newPollTitle').focus();
     setTimeout(fade, 3000 );
     return }
 
@@ -70,13 +71,14 @@ $('.btn.btn-outline-secondary.start.subpoll').click(function(){
 $('.form-control.option_val').each(function(){
     if ($(this).val() ==="" || $(this).val() === null){
     $(".error_ms").text("You can't submit an empty answer!");
+    $(this).focus();
     error= true;
     return
     }
 
   for(options in optionOutput){
     if ($(this).val()===optionOutput[options]){
-      $(".error_ms").text("No duplicate answers please!");; 
+      $(".error_ms").text("No duplicate answers please!"); 
       error = true;
     }
 
@@ -97,6 +99,7 @@ $('.form-control.option_val').each(function(){
   if (emailOutput === "" || emailOutput === null) {
     $(".error_ms").text("Please submit an email address.");
     $(".error").fadeIn();
+    $('.form-control.emailNewPoll').focus();
     setTimeout(fade, 3000 );  
     return
   }
