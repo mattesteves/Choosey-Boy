@@ -49,18 +49,21 @@ let optionValues = [];
 let optionPoints = [];
 let optionProportions = [];
 let optionDescriptions = [];
+let noVotes = true;
 
 $('.optionValue').each(function() {
   optionValues.push($(this).text());
 })
 
 $('.optionPoints').each(function() {
+  if($(this).text() > 0) noVotes = false;
   optionPoints.push($(this).text());
 })
 
 $('.optionProportion').each(function() {
   optionProportions.push($(this).text());
 })
+
 
 for(let i = 0; i < optionValues.length; i++) {
   optionValues[i] += ` (${Math.round(optionProportions[i] * 100)}%)`;
@@ -80,23 +83,27 @@ let data = {
 
 };
 
-var ctx = document.getElementById('myChart').getContext('2d');
-var myPieChart = new Chart(ctx,{
-    type: 'pie',
-    data: data,
-    borderColor: 'black',
+if(noVotes){
+  $('.pullquote').append(`<br>No one has voted on this poll yet, check back later`)
+}else {
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myPieChart = new Chart(ctx,{
+      type: 'pie',
+      data: data,
+      borderColor: 'black',
 
-    options: {
-    legend: {
-        display: true,
-    },
-    labels: {
-        color: 'black',
-        position: 'bottom'
-    }
+      options: {
+      legend: {
+          display: true,
+      },
+      labels: {
+          color: 'black',
+          position: 'bottom'
+      }
 
-    }
-});
+      }
+  });
+}
 </script>
 
 
