@@ -4,17 +4,19 @@
     </blockquote>
 
        <h3>Your Polls</h3>
-     <% for (var i = 0; i < pollList.length; i++) {  %>
+
+      <%  pollList.forEach(function(key) {  %>
         <tr style="height:30px;">
-            <form action="/poll/<%= pollList[i]%>" method="POST">
+            <form action="/poll/<%= key.id%>" method="POST">
               <td>
-               <a href="/poll/<%= pollList[i]%>"><%= pollList[i]%></a>
+               <a href="/poll/<%= key.id%>"><%= key.id +"--" +key.value%></a>
               </td>
 
             </form>
         </tr>
 
-     <% } %>
+      <% })  %>
+
     <div class="col"></div>
 
 <% include partials/_footer.ejs %>

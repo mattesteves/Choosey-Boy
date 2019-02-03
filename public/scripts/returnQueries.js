@@ -36,7 +36,7 @@ module.exports = function returnQueries(knex) {
 
     getPollIdFromEmail: async function(email) {
      try{
-       let poll = await knex.select('polls.id').from('users').innerJoin('polls', {'users.id':'user_id'}).where({'users.email': email});
+       let poll = await knex.select('polls.id', 'polls.value').from('users').innerJoin('polls', {'users.id':'user_id'}).where({'users.email': email});
        return poll;
      } catch(e) {
        console.log('error getting poll id givin email');

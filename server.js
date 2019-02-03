@@ -15,6 +15,8 @@ const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const cookieSession = require('cookie-session');
 var pollPageList = [];
+var pollPageList2 = [];
+
 
 app.use(cookieSession({
   secret: "super_secret"
@@ -63,7 +65,8 @@ app.get("/", (req, res) => {
 app.get("/poll", (req, res) => {
   const templateVars = {};
   console.log('this is pollPageList', pollPageList)
-  templateVars.pollList = pollPageList;
+  console.log('this is pollPageList2', pollPageList2)
+  templateVars.pollList = pollPageList2;
   console.log(templateVars)
   // const templateVars = { poll: poll, user: email, cookie: cookie };
   res.render("poll", templateVars);
@@ -203,17 +206,11 @@ app.post("/poll", (req, res) => {
       .getPollIdFromEmail(userEmail)
       .then((returnValue) => {
         if (returnValue){
+          pollPageList2 = returnValue;
           console.log("this is returnValue :", returnValue)
-          // finalArray = returnValue.map(function (obj) {
-          // return obj.id;
-          // });
-          // var pollPageList = [];
           returnValue.forEach(function(poll) {
           pollPageList.push(poll.id);
           });
-        // templateVars.pollList = polls;
-        // console.log(templateVars)
-
         }
       }).then(() => {
         res.json({pollRedirect: "http://localhost:8080/poll/"});
