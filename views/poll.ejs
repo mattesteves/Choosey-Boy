@@ -1,14 +1,14 @@
 <% include partials/_header.ejs %>
 
 
-       <h2>Your Polls</h2><br>
+       <h1>Your Polls</h1><br>
 
       <%  pollList.forEach(function(key) {  %>
         <tr style="height:30px;">
           <div class="your_link">
             <form action="/poll/<%= key.id%>" method="POST">
               <td>
-               <a href="/poll/<%= key.id%>"><%= key.value%></a>
+               <a href="/poll/<%= key.id%>"><h2>&middot <%= key.value%></h2></a>
               </td>
             </form>
           </div>
