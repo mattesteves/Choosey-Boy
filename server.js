@@ -14,7 +14,7 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const cookieSession = require('cookie-session');
-var pollPageList = [];
+
 var pollPageList2 = [];
 
 
@@ -24,7 +24,6 @@ app.use(cookieSession({
 
 const insertQueries = require('./public/scripts/insertQueries.js')(knex);
 const returnQueries = require('./public/scripts/returnQueries.js')(knex);
-
 
 // using SendGrid's v3 Node.js Library
 // https://github.com/sendgrid/sendgrid-nodejs
@@ -50,7 +49,7 @@ app.use("/styles", sass({
   outputStyle: 'expanded'
 }));
 app.use(express.static("public"));
-console.log(__dirname)
+
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
@@ -59,24 +58,19 @@ app.use("/api/users", usersRoutes(knex));
 // Home page
 app.get("/", (req, res) => {
   const templateVars = {};
-  // const templateVars = { poll: poll, user: email, cookie: cookie };
   res.render("index", templateVars);
 });
 // poll page to list polls
 app.get("/poll", (req, res) => {
   const templateVars = {};
-  console.log('this is pollPageList', pollPageList)
-  console.log('this is pollPageList2', pollPageList2)
   templateVars.pollList = pollPageList2;
-  console.log(templateVars)
-  // const templateVars = { poll: poll, user: email, cookie: cookie };
+
   res.render("poll", templateVars);
 });
 
 // new poll page
 app.get("/new_poll", (req, res) => {
   const templateVars = {};
-  // const templateVars = { poll: poll, user: email, cookie: cookie };
   res.render("new_poll", templateVars);
 });
 
@@ -110,10 +104,8 @@ app.get("/poll/:id", (req, res) => {
     .getValue('polls', 'value', id)
     .then((returnValue) => {
       templateVars.pollName = returnValue;
-      })
-
+    })
     .then(() => {
-
       let optionVars = returnQueries
       .getOptions(id).then((OptionInput) => {
 
@@ -124,7 +116,6 @@ app.get("/poll/:id", (req, res) => {
             optionValues.push(option.value);
             optionDescriptions.push(option.description);
           })
-
           templateVars.poll =id
           templateVars.value = optionValues
           templateVars.descriptions = optionDescriptions
@@ -172,7 +163,7 @@ app.get("/poll/:id/results", (req, res) => {
         value: option,
         points: options[option].points,
         description: options[option].description,
-        proportion: options[option].points / totalPoints,
+        proportion: options[option].points / totalPoints
       })
     }
     returnQueries.getValue('polls', 'value', pollId)
@@ -189,7 +180,7 @@ app.get("/poll/:id/results", (req, res) => {
 //temp test results page without vars
 
 app.get("/test", (req,res)=>{
-res.render("poll_links" )
+  res.render("poll_links" )
 });
 
 
@@ -199,7 +190,6 @@ res.render("poll_links" )
 
 app.post("/poll", (req, res) => {
   let templateVars = {};
-  console.log("email on server get :",req.body.email)
   const userEmail = req.body.email;
 
   let pollList = returnQueries
@@ -207,16 +197,14 @@ app.post("/poll", (req, res) => {
       .then((returnValue) => {
         if (returnValue){
           pollPageList2 = returnValue;
-          console.log("this is returnValue :", returnValue)
           returnValue.forEach(function(poll) {
-          pollPageList.push(poll.id);
           });
         }
       }).then(() => {
         res.json({pollRedirect: "http://localhost:8080/poll/"});
         res.render("poll", templateVars);
 
-      })
+      });
 
 });
 
@@ -247,7 +235,7 @@ app.post("/new_poll", (req, res) => {
           //send email
           sendEmail(userEmail,urlShare,urlAdmin);
 
-          res.json({url: pollLinksPath})
+          res.json({url: pollLinksPath});
         })
         .catch(err => console.log(err));
     })
@@ -305,10 +293,10 @@ app.listen(PORT, () => {
 
 });
 
+//api that is used to send email to creator of poll
 function sendEmail(to,pollLink,adminLink){
-  console.log(pollLink)
 
-  sgMail.setApiKey('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');
+  sgMail.setApiKey('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');
   const msg = {
     to: to,
     from: to,

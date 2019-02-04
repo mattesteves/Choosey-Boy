@@ -40,7 +40,6 @@ $('.option-container').on('click', 'button', function(){
   $(this).closest('div .ind_option').detach();
   $(this).closest('div .ind_option').remove();
   counter-- ;
-  console.log(counter);
   $('.btn.btn-outline-secondary.start.add-option').slideDown();
 
 });
@@ -70,7 +69,8 @@ $('.btn.btn-outline-secondary.start.subpoll').click(function(){
     $(".error").addClass("shake");
     $('.form-control.newPollTitle').focus();
     setTimeout(fade, 3000 );
-    return }
+    return
+  }
 
   let optionOutput = [];
   let votes = [];
@@ -79,9 +79,9 @@ $('.btn.btn-outline-secondary.start.subpoll').click(function(){
 
 $('.form-control.option_val').each(function(){
     if ($(this).val() ==="" || $(this).val() === null){
-    $(".error_ms").text("You can't submit an empty answer!");
-    $(this).focus();
-    error= true;
+      $(".error_ms").text("You can't submit an empty answer!");
+      $(this).focus();
+      error= true;
     return
     }
 
@@ -91,12 +91,12 @@ $('.form-control.option_val').each(function(){
       error = true;
     }
 
-    }
-    optionOutput.push($(this).val());
+  }
+  optionOutput.push($(this).val());
 
 
-    descriptionOut.push($(this).parent().next('input').val());
-  });
+  descriptionOut.push($(this).parent().next('input').val());
+});
 
 
   if (error === true){
@@ -149,36 +149,32 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
     return
   }
   $(this).closest('div .pollshow_indoption').slideUp('', function(){
-    $(this).closest('div .pollshow_indoption').next().insertBefore($(this).closest('div .pollshow_indoption'))});
+  $(this).closest('div .pollshow_indoption').next().insertBefore($(this).closest('div .pollshow_indoption'))});
   $(this).closest('div .pollshow_indoption').slideDown('');
-  });
+});
 
 //Submitting votes on poll_show.ejs
 
   $('#pollshow_submit').click( function (){
     let votes =[]
-  $('.pollshow_option_text').each(function(){
-    votes.push($(this).text() )
-    console.log($(this).text())
-  });
-  console.log(votes)
-
-     $.ajax({
-      method: "POST",
-      url: window.location.href,
-      data: {
-        votes: votes
-      }
-    }).then((data) => {
-       window.location.href = data.url
-    })
-  return votes
+    $('.pollshow_option_text').each(function(){
+      votes.push($(this).text() )
+    });
+       $.ajax({
+        method: "POST",
+        url: window.location.href,
+        data: {
+          votes: votes
+        }
+      }).then((data) => {
+         window.location.href = data.url
+      })
+    return votes
   });
 
 
   $('#emaillist').click(function(){
     let emaillist =($('#emaillist22').val());
-    console.log("this is emaillist1",emaillist);
   if (emaillist === "" || emaillist === null) {
     $(".error").text("Error ! Not a valid input.");
   }else{
@@ -189,7 +185,6 @@ $('.pollshow_indoption').on('click', '.fas.fa-arrow-circle-down', function(){
         email: emaillist,
       }
     }).then((data) => {
-      console.log("this is url",data.pollRedirect);
        window.location.href = data.pollRedirect
     })
   }
