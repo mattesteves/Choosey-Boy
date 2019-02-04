@@ -197,8 +197,6 @@ app.post("/poll", (req, res) => {
       .then((returnValue) => {
         if (returnValue){
           pollPageList2 = returnValue;
-          returnValue.forEach(function(poll) {
-          });
         }
       }).then(() => {
         res.json({pollRedirect: "http://localhost:8080/poll/"});
