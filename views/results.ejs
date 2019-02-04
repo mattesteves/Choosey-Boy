@@ -1,7 +1,10 @@
 <% include partials/_header.ejs %>
 
 <div class="pullquote">
-<%= pollValue %>
+<h1>
+    <%= pollValue %>
+  
+</h1>
 </div>
 
 <!--
@@ -84,7 +87,7 @@ let data = {
 };
 
 if(noVotes){
-  $('.pullquote').append(`<br>No one has voted on this poll yet, check back later`)
+  $('.pullquote').append(`<br><br><h2> No one has voted on this poll yet.<br> Bummer :(</br> check back later.</h2>`)
 }else {
   var ctx = document.getElementById('myChart').getContext('2d');
   var myPieChart = new Chart(ctx,{
