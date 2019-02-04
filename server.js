@@ -296,7 +296,7 @@ app.listen(PORT, () => {
 //api that is used to send email to creator of poll
 function sendEmail(to,pollLink,adminLink){
 
-  sgMail.setApiKey('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');
+  sgMail.setApiKey('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');
   const msg = {
     to: to,
     from: to,
