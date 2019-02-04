@@ -25,7 +25,6 @@ $bg-purp: #625d8e;
     a:hover{
         text-decoration: none;
         color:white;
-        animation: shake, 0.5s;
     }
 }
 
@@ -49,6 +48,13 @@ $bg-purp: #625d8e;
 
     font-size: 1.5rem;
     margin-bottom: 15%;
+    a{
+        color:white;
+        text-decoration: underline;
+    }
+    a:hover{
+        color:white;
+    }
 
 }
 

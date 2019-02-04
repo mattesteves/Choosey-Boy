@@ -51,6 +51,7 @@ $('.btn.btn-outline-secondary.start.subpoll').click(function(){
   if (counter < 2){
     $(".error_ms").text("You need to add some options, wiseguy!");
     $(".error").fadeIn();
+    $(".error").addClass("shake");
     setTimeout(fade, 3000 );
     return
 
