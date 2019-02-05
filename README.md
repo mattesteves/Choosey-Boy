@@ -26,6 +26,15 @@ Users can then vote on their preferences by clicking up and down arrows, and are
 - Jquery
 - Postgres
 
+## Setting up SendGrid 
+- Create an SendGrid account and get API key at http://sendgrid.com/pricing.html
+-Create an environment variable
+  ```
+  echo "export SENDGRID_API_KEY='YOUR_API_KEY'" > sendgrid.env
+  echo "sendgrid.env" >> .gitignore
+  source ./sendgrid.env
+  ```
+
 ## Screenshots
 
 [Asking the important questions](https://imgur.com/lLgUVOa)
