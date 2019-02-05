@@ -26,6 +26,9 @@ Users can then vote on their preferences by clicking up and down arrows, and are
 - Jquery
 - Postgres
 
+## Set up .env
+- Rename .env.example file to .env
+
 ## Setting up SendGrid 
 - Create an SendGrid account and get API key at http://sendgrid.com/pricing.html
 
