@@ -32,9 +32,9 @@ Users can then vote on their preferences by clicking up and down arrows, and are
 ## Setting up SendGrid 
 - Create an SendGrid account and get API key at http://sendgrid.com/pricing.html
 
--Type following command into terminal
+-Type following command into terminal with your API key in the single quotes
   ```
-  echo "SENDGRID_API_KEY='YOUR_API_KEY'" >> .env
+  echo "SENDGRID_API_KEY='YOUR API KEY'" >> .env
   
   ```
 
